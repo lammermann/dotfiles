@@ -1,0 +1,111 @@
+#
+# bashmount.conf
+#
+
+# Set Udisks command path.
+udisks="/usr/bin/udisks"
+
+# Set which sections to show in the output. These can be "0" or "1".
+show_removable="1"
+show_optical="1"
+show_commands="1"
+
+# Set whether to colourize the output. This can be "0" or "1".
+colourize="1"
+
+# Set optical device location. This string is matched using grep like so:
+# udisks --enumerate-device-files | grep -ow ${optical_devices} | sort
+# If you wish to do more complicated matches, the string can be modified to
+# include grep options, such as setting it to "-e sr0 -e sr[2-9]". This
+# allows more control over which devices are processed/ignored by the menu.
+# See the grep man page for more information.
+optical_devices="-E ^/dev/sr[0-9]+"
+
+# Set removable devices location. The default is to ignore /dev/sda*, which is
+# usually the primary system drive. This string is matched using grep like so:
+# udisks --enumerate-device-files | grep -ow ${removable_devices} | sort
+# If you wish to do more complicated matches, the string can be modified to
+# include grep options, such as setting it to "-e sdb[0-9]* -e sdc1". This
+# allows more control over which devices are processed/ignored by the menu.
+# See the grep man page for more information.
+removable_devices="-E ^/dev/sd[b-z]?[0-9]*"
+
+# Uncomment the following line to view LUKS encrypted partitions
+#removable_devices="-E ^/dev/sd[b-z]?[0-9]*|^/dev/dm-[0-9]?"
+
+# Set whether to show internal devices. This can be "0" or "1". If you have
+# system drives that are always found at the same location (e.g. /dev/sda),
+# it is better and faster to hide them using the "removable_devices" option.
+show_internal="1"
+
+# Set default mount options for Udisks.
+mount_options="--mount-options nosuid,noexec,noatime"
+
+# Set whether to show the device filename in the menu. These can be "0" or "1".
+# Example: If this is set to "1" then the menu entry will show "sdb1: cruzer",
+# while if this is set to "0" then the menu entry will only show "cruzer".
+show_removable_device_filename="1"
+show_optical_device_filename="1"
+
+# Set filemanager command to use when performing the "open" command. The mount
+# point is passed as the first argument. Change this to any filemanager you
+# wish, or uncomment the other examples below.
+#filemanager() {
+#	/usr/bin/Thunar "${1}" & >/dev/null 2>&1
+#}
+
+# Uncomment this example to launch midnight commander in a new window.
+#filemanager() {
+#	/usr/bin/uxterm -wf -e /usr/bin/mc "${1}" & >/dev/null 2>&1
+#}
+
+# If you like using the command line as your file manager then uncomment this.
+# When you exit this sub-shell, you will be returned to the bashmount menu.
+#filemanager() {
+#	cd "${1}" && ${SHELL}
+#}
+
+filemanager() {
+	/usr/bin/ranger "${1}"
+}
+
+# Set custom commands. Set "customX_show" to "0" to disable or "1" to enable.
+# If enabled, the custom commands will be shown in the device sub-menu. The
+# description and command functions can be set to anything you desire. The
+# device name (e.g. /dev/sdb1) is passed as the first and only argument.
+# A maximum of 6 custom actions are configurable.
+custom1_show="0"
+custom1_desc="read-only"
+custom1_command() {
+	udisks --mount-options nosuid,noexec,noatime,ro --mount ${1}
+}
+
+custom2_show="0"
+custom2_desc="luksOpen"
+custom2_command() {
+	sudo cryptsetup --verbose luksOpen ${1} ${1#/dev/}
+}
+
+custom3_show="0"
+custom3_desc="luksClose"
+custom3_command() {
+	sudo cryptsetup --verbose luksClose ${1}
+}
+
+#custom4_show="0"
+#custom4_desc=""
+#custom4_command() {
+#
+#}
+
+#custom5_show="0"
+#custom5_desc=""
+#custom5_command() {
+#
+#}
+
+#custom6_show="0"
+#custom6_desc=""
+#custom6_command() {
+#
+#}

@@ -1,0 +1,11 @@
+.svn
+/.settings
+*.pyc
+*.pyo
+/.project
+/.pydevproject
+#*
+*~
+*.swp
+Thumbs.db
+*.log

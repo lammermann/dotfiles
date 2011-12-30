@@ -1,0 +1,4 @@
+set browser luakit %s &
+
+map q quit
+map Q quit
