@@ -28,7 +28,7 @@ optical_devices="-E ^/dev/sr[0-9]+"
 # include grep options, such as setting it to "-e sdb[0-9]* -e sdc1". This
 # allows more control over which devices are processed/ignored by the menu.
 # See the grep man page for more information.
-removable_devices="-E ^/dev/sd[b-z]?[0-9]*"
+removable_devices="-E ^/dev/sd[b-z]?[0-9]*|^/dev/mmcblk[0-9]*"
 
 # Uncomment the following line to view LUKS encrypted partitions
 #removable_devices="-E ^/dev/sd[b-z]?[0-9]*|^/dev/dm-[0-9]?"
