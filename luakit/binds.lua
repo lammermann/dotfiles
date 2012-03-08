@@ -260,7 +260,7 @@ add_binds("normal", {
 add_binds("insert", {
     key({"Control"}, "z",           function (w) w:set_mode("passthrough") end),
     key({"Control"},  "e",          function (w)
-        local editor = "urxvt -e vim -c 'set spell'" 
+        local editor = "urxvt -e vim -c 'set spell' -c 'set spelllang=de,en'" 
         local dir = "/tmp/luakit/" 
         local time = os.time()
         local file = dir .. time
