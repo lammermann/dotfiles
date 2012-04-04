@@ -8,4 +8,6 @@ then
     #eval `ssh-agent`
     export SSH_ASKPASS=${HOME}/bin/askpass
     eval `keychain --eval ${HOME}/.ssh/id_rsa --noask --confirm --nogui`
+else
+    export TERM=rxvt-unicode-256color
 fi

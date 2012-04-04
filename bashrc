@@ -1,6 +1,13 @@
+#=============================================================================== 
+#
+# Global Bash Configuration
+#=============================================================================== 
+# Load Guard {{{
 # Check for an interactive session
 [ -z "$PS1" ] && return
-
+# }}}
+#=============================================================================== 
+# Aliases {{{
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
@@ -9,6 +16,11 @@ alias 'sshfs_osfirma'='sshfs rechner1:/daten1/optisense/firma /media/os-firma/ -
 alias 'sshfs_archiv'='sshfs rechner1:/daten1/optisense_archiv/offen /media/archiv/ -o umask=002'
 alias ftp='ncftp'
 
+# tell ssh first to check the agent
+alias ssh='$HOME/bin/askpass; ssh'
+# }}}
+#=============================================================================== 
+# Variables {{{
 # Use vim as default editor
 export EDITOR='vim'
 export VISUAL='gvim'
@@ -18,10 +30,6 @@ export http_proxy=http://127.0.0.1:8118/
 
 # export GNU_PG for vim
 export GPG_TTY=`tty`
-
-if [ -f /etc/bash_completion ]; then
-   . /etc/bash_completion
-fi
 
 # Den Pfad anpassen fuer m68k-tools
 export PATH=$PATH:/usr/local/bin
@@ -34,11 +42,18 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
-
-# tell ssh first to check the agent
-alias ssh='$HOME/bin/askpass; ssh'
-
-# Erweiterten Prompt einstellen
+# }}}
+#=============================================================================== 
+# Commands {{{
+# completion
+if [ -f /etc/bash_completion ]; then
+   . /etc/bash_completion
+fi
+# unmap ctrl-s for mapping it in vim
+stty stop undef
+# }}}
+#=============================================================================== 
+# Erweiterten Prompt einstellen {{{
         RED="\[\033[0;31m\]"
      YELLOW="\[\033[0;33m\]"
       GREEN="\[\033[0;32m\]"
@@ -96,3 +111,6 @@ function prompt_func() {
 }
 
 PROMPT_COMMAND=prompt_func
+# }}}
+#=============================================================================== 
+# vim: fdm=marker:
