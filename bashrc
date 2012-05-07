@@ -66,7 +66,7 @@ LIGHT_GREEN="\[\033[1;32m\]"
 
 function parse_git_branch {
     git rev-parse --git-dir &> /dev/null
-    git_status="$(git status 2> /dev/null)"
+    git_status="$(LANG=en_US.UTF-8; git status 2> /dev/null)"
     branch_pattern="^# On branch ([^${IFS}]*)"
     remote_pattern="# Your branch is (.*) of"
     diverge_pattern="# Your branch and (.*) have diverged"
