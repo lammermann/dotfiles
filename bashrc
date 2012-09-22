@@ -42,6 +42,10 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
+
+# Modify luapath for local development
+export LUA_PATH="$HOME/.luarocks/share/lua/5.1/?.lua;`lua -e 'print(package.path)'`"
+export LUA_CPATH="$HOME/.luarocks/lib/lua/5.1/?.so;`lua -e 'print(package.cpath)'`"
 # }}}
 #=============================================================================== 
 # Commands {{{
