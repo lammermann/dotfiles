@@ -5,6 +5,7 @@ Installation
 > ln -s ~/.config/bashrc ~/.bashrc
 > ln -s ~/.config/bash_profile ~/.bash_profile
 > ln -s ~/.config/Xdefaults ~/.Xdefaults
+> ln -s ~/.config/inputrc ~/.inputrc
 
 Create a file ~/.gitconfig and edit it this way:
 

@@ -1,0 +1,6 @@
+# Das Piepen in der Shell abszellen
+set bell-style none
+
+# Beim durchsuchen der History bereits eingegebene Zeile beruecksichtigen
+"\e[A":history-search-backward
+"\e[B":history-search-forward
