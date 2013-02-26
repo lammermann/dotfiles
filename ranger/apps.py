@@ -72,5 +72,5 @@ class CustomApplications(DefaultApps):
 
 # By setting flags='d', this programs will not block ranger's terminal:
 CustomApplications.generic('opera', 'firefox', 'apvlv', 'evince',
-        'zathura', 'gimp', 'mirage', 'eog', 'luakit', flags='d')
+        'zathura', 'gimp', 'mirage', 'eog', 'luakit', 'chromium', flags='d')
 
