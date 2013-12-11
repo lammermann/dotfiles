@@ -25,8 +25,8 @@ alias ssh='$HOME/bin/askpass; ssh'
 export EDITOR='vim'
 export VISUAL='gvim'
 
-# privoxy as proxyserver
-export http_proxy=http://127.0.0.1:8118/
+## privoxy as proxyserver
+#export http_proxy=http://127.0.0.1:8118/
 
 # export GNU_PG for vim
 export GPG_TTY=`tty`
@@ -73,13 +73,13 @@ LIGHT_GREEN="\[\033[1;32m\]"
 function parse_git_branch {
     git rev-parse --git-dir &> /dev/null
     git_status="$(LANG=en_US.UTF-8; git status 2> /dev/null)"
-    branch_pattern="^# On branch ([^${IFS}]*)"
-    remote_pattern="# Your branch is (.*) of"
-    diverge_pattern="# Your branch and (.*) have diverged"
+    branch_pattern="^On branch ([^${IFS}]*)"
+    remote_pattern="Your branch is (.*) of"
+    diverge_pattern="Your branch and (.*) have diverged"
     if [[ ! ${git_status} =~ "working directory clean" ]]; then
-        if [[ ${git_status} =~ "# Changes to commited" ]]; then
+        if [[ ${git_status} =~ "Changes to commited" ]]; then
             state="${RED}"
-        elif [[ ${git_status} =~ "# Changes not staged for commit" ]]; then
+        elif [[ ${git_status} =~ "Changes not staged for commit" ]]; then
             state="${RED}"
         else
             untracked="${LIGHT_RED}*"
