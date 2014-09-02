@@ -14,6 +14,8 @@ URxvt.keysym.M-C-1: command:\033]710;6x13\007\033]711;6x13bold\007
 URxvt.keysym.M-C-2: command:\033]710;9x15\007\033]711;9x15bold\007
 URxvt.keysym.M-C-3: command:\033]710;10x20\007\033]711;10x20bold\007
 URxvt.keysym.M-C-4: command:\033]710;12x24\007\033]711;12x24bold\007
+XTerm.vt100.foreground: white
+XTerm.vt100.background: black
 Xft*dpi: 96
 Xft*antialias: true
 Xft*hinting: hintslight
