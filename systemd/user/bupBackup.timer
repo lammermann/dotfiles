@@ -1,0 +1,11 @@
+[Unit]
+Description=weekly full backup
+
+[Timer]
+# see systemd.time(7) manual page for other scheduling options
+OnCalendar=weekly
+# run immediately if we missed a backup for some reason
+Persistent=true
+
+[Install]
+WantedBy=timers.target

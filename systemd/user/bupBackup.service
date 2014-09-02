@@ -1,0 +1,5 @@
+[Unit]
+Description=full system backup with bup
+
+[Service]
+ExecStart=${HOME}/bin/backup.sh
