@@ -31,9 +31,6 @@ export VISUAL='gvim'
 # export GNU_PG for vim
 export GPG_TTY=`tty`
 
-# Den Pfad anpassen fuer m68k-tools
-export PATH=$PATH:/usr/local/bin
-
 # Man farbig gestalten
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;34m'
@@ -44,10 +41,14 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Modify luapath for local development
-export LUA_INIT="package.path = './?.lua;$HOME/.luarocks/share/lua/5.1/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.1/?.so;' .. package.cpath"
+#export LUA_INIT="package.path = './?.lua;$HOME/.luarocks/share/lua/5.1/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.1/?.so;' .. package.cpath"
 export LUA_INIT_5_2="package.path = './?.lua;$HOME/.luarocks/share/lua/5.2/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.2/?.so;' .. package.cpath"
 #export LUA_PATH="./?.lua;$HOME/.luarocks/share/lua/5.1/?.lua;/usr/share/luajit-2.0.0-beta10/?.lua;`lua -e 'print(package.path)'`"
 #export LUA_CPATH="./?.so;$HOME/.luarocks/lib/lua/5.1/?.so;`lua -e 'print(package.cpath)'`"
+
+# minko tools
+export MINKO_HOME="${HOME}/Privat/minko/"
+export ANDROID_HOME="${HOME}/Privat/android-sdk-linux"
 # }}}
 #=============================================================================== 
 # Commands {{{

@@ -59,8 +59,8 @@ class CustomApplications(DefaultApps):
         if f.video or f.audio:
             if f.video:
                 c.flags += 'd'
-            return self.either(c, 'mplayer', 'gnome-mplayer', 'smplayer',
-                    'vlc', 'totem')
+            return self.either(c, 'vlc', 'mplayer', 'smplayer',
+                    'gnome-mplayer', 'totem')
 
         return DefaultApps.app_default(self, c)
 

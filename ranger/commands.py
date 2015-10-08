@@ -28,7 +28,7 @@ class bulkrename(Command):
     from ranger.ext.shell_escape import shell_escape as esc
 
     if not pattern:
-        filenames = [f.basename for f in self.fm.env.get_selection()]
+        filenames = [f.basename for f in self.fm.thistab.get_selection()]
         if len(filenames) == 1:
             filenames = [os.path.basename(f).strip() for f in os.popen("ls")]
     elif 'c' in flags:
