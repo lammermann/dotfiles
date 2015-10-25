@@ -15,6 +15,7 @@ alias du='du -h'
 alias 'sshfs_osfirma'='sshfs rechner1:/daten1/optisense/firma /media/os-firma/ -o umask=002'
 alias 'sshfs_archiv'='sshfs rechner1:/daten1/optisense_archiv/offen /media/archiv/ -o umask=002'
 alias ftp='ncftp'
+alias vim='nvim'
 
 # tell ssh first to check the agent
 alias ssh='$HOME/bin/askpass; ssh'
@@ -22,8 +23,8 @@ alias ssh='$HOME/bin/askpass; ssh'
 #=============================================================================== 
 # Variables {{{
 # Use vim as default editor
-export EDITOR='vim'
-export VISUAL='gvim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 ## privoxy as proxyserver
 #export http_proxy=http://127.0.0.1:8118/

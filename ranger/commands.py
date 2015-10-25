@@ -41,7 +41,7 @@ class bulkrename(Command):
 
     listfile.write("\n".join(filenames).encode("utf-8"))
     listfile.flush()
-    self.fm.run(['vim', listfile.name])
+    self.fm.run(['nvim', listfile.name])
     listfile.seek(0)
     new_filenames = listfile.read().decode("utf-8").split("\n")
     listfile.close()
@@ -56,7 +56,7 @@ class bulkrename(Command):
     cmdfile.write("\n".join("mv -vi " + esc(old) + " " + esc(new) \
         for old, new in zip(filenames, new_filenames) if old != new).encode("utf-8"))
     cmdfile.flush()
-    self.fm.run(['vim', cmdfile.name])
+    self.fm.run(['nvim', cmdfile.name])
     self.fm.run(['/bin/sh', cmdfile.name], flags='w')
     cmdfile.close()
 
