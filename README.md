@@ -1,11 +1,7 @@
 Installation
 ------------
 
-> ln -s ~/.config/tmux.conf ~/.tmux.conf
-> ln -s ~/.config/bashrc ~/.bashrc
-> ln -s ~/.config/bash_profile ~/.bash_profile
-> ln -s ~/.config/Xdefaults ~/.Xdefaults
-> ln -s ~/.config/inputrc ~/.inputrc
+> sh install.sh
 
 Create a file ~/.gitconfig and edit it this way:
 
@@ -23,3 +19,7 @@ Create a file ~/.gitconfig and edit it this way:
 > 	ui = true
 >     ...
 > ...
+
+## Installing the default programms
+
+> sh install_progs.sh
