@@ -12,8 +12,6 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
 alias du='du -h'
-alias 'sshfs_osfirma'='sshfs rechner1:/daten1/optisense/firma /media/os-firma/ -o umask=002'
-alias 'sshfs_archiv'='sshfs rechner1:/daten1/optisense_archiv/offen /media/archiv/ -o umask=002'
 alias ftp='ncftp'
 alias vim='nvim'
 
@@ -23,8 +21,9 @@ alias ssh='$HOME/bin/askpass; ssh'
 #=============================================================================== 
 # Variables {{{
 # Use vim as default editor
-export EDITOR='nvim'
-export VISUAL='nvim'
+BROWSER=/usr/bin/chromium
+export EDITOR='/usr/bin/nvim'
+export VISUAL='/usr/bin/nvim'
 
 ## privoxy as proxyserver
 #export http_proxy=http://127.0.0.1:8118/

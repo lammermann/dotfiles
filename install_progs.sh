@@ -22,8 +22,7 @@ yaourt -S lua-lpeg
 yaourt -S premake-git
 
 # window manager
-yaourt -S awesome
-yaourt -S notion
+yaourt -S i3
 
 # browser
 yaourt -S chromium
