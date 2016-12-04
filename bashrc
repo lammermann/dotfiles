@@ -1,12 +1,12 @@
-#=============================================================================== 
+#===============================================================================
 #
 # Global Bash Configuration
-#=============================================================================== 
+#===============================================================================
 # Load Guard {{{
 # Check for an interactive session
 [ -z "$PS1" ] && return
 # }}}
-#=============================================================================== 
+#===============================================================================
 # Aliases {{{
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -18,15 +18,12 @@ alias vim='nvim'
 # tell ssh first to check the agent
 alias ssh='$HOME/bin/askpass; ssh'
 # }}}
-#=============================================================================== 
+#===============================================================================
 # Variables {{{
 # Use vim as default editor
-BROWSER=/usr/bin/chromium
+export BROWSER=/usr/bin/chromium
 export EDITOR='/usr/bin/nvim'
 export VISUAL='/usr/bin/nvim'
-
-## privoxy as proxyserver
-#export http_proxy=http://127.0.0.1:8118/
 
 # export GNU_PG for vim
 export GPG_TTY=`tty`
@@ -43,6 +40,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 # Modify luapath for local development
 #export LUA_INIT="package.path = './?.lua;$HOME/.luarocks/share/lua/5.1/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.1/?.so;' .. package.cpath"
 export LUA_INIT_5_2="package.path = './?.lua;$HOME/.luarocks/share/lua/5.2/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.2/?.so;' .. package.cpath"
+export LUA_INIT_5_3="package.path = './?.lua;$HOME/.luarocks/share/lua/5.3/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.3/?.so;' .. package.cpath"
 #export LUA_PATH="./?.lua;$HOME/.luarocks/share/lua/5.1/?.lua;/usr/share/luajit-2.0.0-beta10/?.lua;`lua -e 'print(package.path)'`"
 #export LUA_CPATH="./?.so;$HOME/.luarocks/lib/lua/5.1/?.so;`lua -e 'print(package.cpath)'`"
 
@@ -50,7 +48,7 @@ export LUA_INIT_5_2="package.path = './?.lua;$HOME/.luarocks/share/lua/5.2/?.lua
 export MINKO_HOME="${HOME}/Privat/minko/"
 export ANDROID_HOME="${HOME}/Privat/android-sdk-linux"
 # }}}
-#=============================================================================== 
+#===============================================================================
 # Commands {{{
 # completion
 if [ -f /etc/bash_completion ]; then
@@ -59,7 +57,7 @@ fi
 # unmap ctrl-s for mapping it in vim
 stty stop undef
 # }}}
-#=============================================================================== 
+#===============================================================================
 # Erweiterten Prompt einstellen {{{
         RED="\[\033[0;31m\]"
      YELLOW="\[\033[0;33m\]"
@@ -77,7 +75,7 @@ function parse_git_branch {
     branch_pattern="^On branch ([^${IFS}]*)"
     remote_pattern="Your branch is (.*) of"
     diverge_pattern="Your branch and (.*) have diverged"
-    if [[ ! ${git_status} =~ "working directory clean" ]]; then
+    if [[ ! ${git_status} =~ "working tree clean" ]]; then
         if [[ ${git_status} =~ "Changes to commited" ]]; then
             state="${RED}"
         elif [[ ${git_status} =~ "Changes not staged for commit" ]]; then
@@ -119,5 +117,5 @@ function prompt_func() {
 
 PROMPT_COMMAND=prompt_func
 # }}}
-#=============================================================================== 
+#===============================================================================
 # vim: fdm=marker:
