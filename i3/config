@@ -156,4 +156,14 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+        position top
 }
+
+# Place browser on workspace 2
+assign [class="Chromium"] 2
+
+# Start system programms
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon &
+#exec --no-startup-id sh ${HOME}/bin/start-gnome-keyring.sh &
+exec --no-startup-id sleep 10 && gnome-session &
+exec --no-startup-id feh --bg-scale --randomize ~/Pictures/wallpaper/* &
