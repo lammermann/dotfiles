@@ -31,6 +31,7 @@ yaourt -S chromium
 yaourt -S inkscape
 yaourt -S blender
 yaourt -S gimp
+yaourt -S mypaint
 
 # multimedia
 yaourt -S vlc
