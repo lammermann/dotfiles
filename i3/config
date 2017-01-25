@@ -104,16 +104,16 @@ bindsym $mod+question exec "i3-sensible-pager ~/.config/i3/config"
 bindsym $mod+Shift+ssharp exec "i3-sensible-pager ~/.config/i3/config"
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 exec "~/.config/i3/workspace-current-output2.py 1"
+bindsym $mod+2 exec "~/.config/i3/workspace-current-output2.py 2"
+bindsym $mod+3 exec "~/.config/i3/workspace-current-output2.py 3"
+bindsym $mod+4 exec "~/.config/i3/workspace-current-output2.py 4"
+bindsym $mod+5 exec "~/.config/i3/workspace-current-output2.py 5"
+bindsym $mod+6 exec "~/.config/i3/workspace-current-output2.py 6"
+bindsym $mod+7 exec "~/.config/i3/workspace-current-output2.py 7"
+bindsym $mod+8 exec "~/.config/i3/workspace-current-output2.py 8"
+bindsym $mod+9 exec "~/.config/i3/workspace-current-output2.py 9"
+bindsym $mod+0 exec "~/.config/i3/workspace-current-output2.py 10"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -176,3 +176,5 @@ exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon &
 #exec --no-startup-id sh ${HOME}/bin/start-gnome-keyring.sh &
 exec --no-startup-id sleep 10 && gnome-session &
 exec --no-startup-id feh --bg-scale --randomize ~/Pictures/wallpaper/* &
+# Disable the screensaver if a program is fullscreen
+exec --no-startup-id ~/.config/i3/disable-screensaver.py &
