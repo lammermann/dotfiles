@@ -170,6 +170,8 @@ bar {
 
 # Place browser on workspace 2
 assign [class="Chromium"] 2
+# Place mailprogram on workspace 5
+assign [class="Thunderbird"] 5
 
 # Start system programms
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon &
