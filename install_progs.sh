@@ -10,10 +10,9 @@ yaourt -S vis-git
 yaourt -S ranger
 yaourt -S tmux
 yaourt -S bashmount
-yaourt -S wicd
-yaourt -S wicd-gtk
 yaourt -S arandr
 yaourt -S bup-git
+yaourt -S asciidoctor
 
 # programming
 yaourt -S git
