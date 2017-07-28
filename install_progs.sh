@@ -11,7 +11,8 @@ yaourt -S ranger
 yaourt -S tmux
 yaourt -S bashmount
 yaourt -S arandr
-yaourt -S bup-git
+yaourt -S borg
+yaourt -S dex
 yaourt -S asciidoctor
 
 # programming

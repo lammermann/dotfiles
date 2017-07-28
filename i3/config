@@ -174,9 +174,8 @@ assign [class="Chromium"] 2
 assign [class="Thunderbird"] 5
 
 # Start system programms
-exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon &
-#exec --no-startup-id sh ${HOME}/bin/start-gnome-keyring.sh &
-exec --no-startup-id sleep 10 && gnome-session &
+exec --no-startup-id dex -a -s ~/.config/autostart -e i3 &
+# Set wallpaper
 exec --no-startup-id feh --bg-scale --randomize ~/Pictures/wallpaper/* &
 # Disable the screensaver if a program is fullscreen
 exec --no-startup-id ~/.config/i3/disable-screensaver.py &

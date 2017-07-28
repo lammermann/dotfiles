@@ -51,7 +51,7 @@ if __name__ == "__main__":
     # Move the new workspace to the display I'm currently working on
     cmd3 = "move workspace to output " + active_output + ";"
     # Switch to the new workspace
-    cmd4 = "workspace " + newworkspace + ";"
+    cmd4 = "focus output " + active_output + ";"
     # Execute it all
     print(ipc_query(msg=cmd1 + cmd2 + cmd3))
 

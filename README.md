@@ -8,7 +8,7 @@ Create a file ~/.gitconfig and edit it this way:
 ~/.gitconfig
 > ...
 > [core]
-> 	editor = vim
+> 	editor = nvim
 > 	autocrlf = input
 > 	excludesfile = /home/benjamin/.config/ignore
 >     ...
