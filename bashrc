@@ -14,9 +14,6 @@ alias df='df -h'
 alias du='du -h'
 alias ftp='ncftp'
 alias vim='nvim'
-
-# tell ssh first to check the agent
-alias ssh='$HOME/bin/askpass; ssh'
 # }}}
 #===============================================================================
 # Variables {{{
@@ -116,6 +113,15 @@ function prompt_func() {
 }
 
 PROMPT_COMMAND=prompt_func
+# }}}
+#===============================================================================
+# ssh daemon starten {{{
+if [[ -o login ]]; then
+  echo "You are on a login shell. No ssh daemon will be started"
+else
+  eval $(gnome-keyring-daemon --start --components=pkcsll,secrets,ssh)
+  export SSH_AUTH_SOCK
+fi
 # }}}
 #===============================================================================
 # vim: fdm=marker:
