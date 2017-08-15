@@ -172,6 +172,8 @@ bar {
 assign [class="Chromium"] 2
 # Place mailprogram on workspace 5
 assign [class="Thunderbird"] 5
+# Place vector draw program on workspace 6
+assign [class="Inkscape"] 6
 
 # Start system programms
 exec --no-startup-id dex -a -s ~/.config/autostart -e i3 &
