@@ -19,8 +19,8 @@ alias vim='nvim'
 # Variables {{{
 # Use vim as default editor
 export BROWSER=/usr/bin/chromium
-export EDITOR='/usr/bin/nvim'
-export VISUAL='/usr/bin/nvim'
+export EDITOR='/usr/bin/kak'
+export VISUAL='/usr/bin/kak'
 
 # export GNU_PG for vim
 export GPG_TTY=`tty`

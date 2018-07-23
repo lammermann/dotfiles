@@ -51,7 +51,8 @@ class bulkrename(Command):
         else:
             listfile.write("\n".join(filenames))
         listfile.close()
-        self.fm.run(['vis', listpath])
+        self.fm.run(['kak', listpath])
+        #self.fm.run(['vis', listpath])
         #self.fm.run(['nvim', listfile.name])
         listfile = open(listpath, 'r')
         new_filenames = listfile.read().split("\n")
@@ -77,7 +78,8 @@ class bulkrename(Command):
 
         # Open the script and let the user review it, then check if the script
         # was modified by the user
-        self.fm.run(['vis', cmdfile.name])
+        self.fm.run(['kak', cmdfile.name])
+        #self.fm.run(['vis', cmdfile.name])
         #self.fm.run(['nvim', cmdfile.name])
         cmdfile.seek(0)
         script_was_edited = (script_content != cmdfile.read())
