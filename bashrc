@@ -41,9 +41,9 @@ export LUA_INIT_5_3="package.path = './?.lua;$HOME/.luarocks/share/lua/5.3/?.lua
 #export LUA_PATH="./?.lua;$HOME/.luarocks/share/lua/5.1/?.lua;/usr/share/luajit-2.0.0-beta10/?.lua;`lua -e 'print(package.path)'`"
 #export LUA_CPATH="./?.so;$HOME/.luarocks/lib/lua/5.1/?.so;`lua -e 'print(package.cpath)'`"
 
-# minko tools
-export MINKO_HOME="${HOME}/Projects/watched_projects/minko"
-export ANDROID_HOME="${HOME}/Privat/android-sdk-linux"
+# android tools
+export ANDROID_HOME="${HOME}/bin/android-sdk-linux"
+export NDK_HOME="${ANDROID_HOME}/ndk-bundle"
 # }}}
 #===============================================================================
 # Commands {{{

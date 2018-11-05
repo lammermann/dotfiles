@@ -1,3 +1,6 @@
+################################################################################
+# Options
+
 # use a better colorscheme
 colorscheme github
 
@@ -11,23 +14,132 @@ hook global InsertChar \t %{ try %{
   execute-keys -draft h %opt{indentwidth}@
 } }
 
+# allways remove trailing whitespace
+hook global BufWritePre .* %{ try %{ execute-keys -draft \%s\h+$<ret>d } }
+
+# add relative line numbers
+#hook global WinCreate .* %{ add-highlighter window number-lines -relative }
+
+# use ripgrep as regex search tool
+set global grepcmd 'rg --column'
+
+alias global qa kill
+
+################################################################################
 # load plugins
-%sh{
-    autoload_directory() {
-        find -L "$1" -type f -name '*\.kak' \
-            -exec printf 'try %%{ source "%s" } catch %%{ echo -debug Autoload: could not load "%s" }\n' '{}' '{}' \;
-    }
 
-    #if [ -d "${kak_config}/autoload" ]; then
-    #    autoload_directory ${kak_config}/autoload
-    #fi
+evaluate-commands %sh{
+  autoload_directory() {
+    find -L "$1" -type f -name '*\.kak' \
+      -exec printf 'try %%{ source "%s" } catch %%{ echo -debug Autoload: could not load "%s" }\n' '{}' '{}' \;
+  }
 
-    autoload_directory ${kak_config}/plugins/kakoune-vertical-selection/
-    autoload_directory ${kak_config}/plugins/kakoune-sudo-write/
+  autoload_directory ${kak_config}/filetypes/
+
+  autoload_directory ${kak_config}/plugins/
 }
+
+################################################################################
+# Mappings
 
 # Setup vertical selection mappings
 map -docstring "select pattern down" global user v :select-down<ret>
 map -docstring "select pattern up" global user <a-v> :select-up<ret>
 map -docstring "select both directions" global user V :select-vertically<ret>
 
+map -docstring "Send selection to repl window" global user s <esc>:send-text<ret>
+map -docstring "Load your kakrc" global user R <esc>:source<space>~/.config/kak/kakrc<ret>
+
+# clipboard interaction
+map global user p -docstring 'paste (after) from clipboard' '!xclip -o -selection clipboard<ret>'
+map global user P -docstring 'paste (before) from clipboard' '<a-!>xclip -o -selection clipboard<ret>'
+map global user y -docstring 'copy to clipboard' '<a-|>xclip -i -selection clipboard<ret>; :echo "copied selection to X11 clipboard"<ret>'
+map global user r -docstring 'replace from clipboard' '|xclip -i -selection clipboard<ret>; xclip -o -selection clipboard<ret>'
+
+# Window and View manipualtion
+map global normal <c-w> V
+map -docstring "open new window" global view n <esc>:new<ret>
+map -docstring "close current window" global view c <esc>:quit<ret>
+
+# Goto bindings
+map -docstring "Your kakrc" global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret>
+
+# TODO implement replace Mode and bind it to something
+#declare-user-mode replace
+
+# overwrite a'la vim's R replace mode
+def overwrite %{
+  try %{
+    hook buffer -group overwrite InsertChar .* %{exec <right><backspace>}
+    map buffer insert <backspace> <left>
+    hook buffer -group overwrite InsertEnd .* %{
+      remove-hooks buffer overwrite
+      unmap buffer insert <backspace> <left>
+    }
+    exec i
+  }
+}
+map global normal <s-r> ': overwrite<ret>'
+
+# Select xml object tags with object selection
+map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
+
+################################################################################
+# Highlight the word under the cursor
+
+#declare-option -hidden regex curword
+#set-face global CurWord default,rgb:4a4a4a
+#
+#hook global NormalIdle .* %{
+#  eval -draft %{ try %{
+#    exec <space><a-i>w <a-k>\A\w+\z<ret>
+#    set-option buffer curword "\b\Q%val{selection}\E\b"
+#  } catch %{
+#    set-option buffer curword ''
+#  } }
+#}
+#add-highlighter global/ dynregex '%opt{curword}' 0:CurWord
+
+################################################################################
+# Helper commands
+
+define-command ide %{
+  rename-client main
+  set-option global jumpclient main
+
+  new rename-client tools
+  set-option global toolsclient tools
+
+  new rename-client docs
+  set-option global docsclient docs
+}
+
+################################################################################
+# Automatic settings for filetypes
+
+# Enable language server
+eval %sh{kak-lsp --kakoune -s $kak_session}
+
+#hook global WinSetOption filetype=(c|cpp) %{
+#  clang-enable-autocomplete; clang-enable-diagnostics;
+#
+#  # set clang include path
+#  evaluate-commands %sh{
+#    git_root=`git rev-parse --show-toplevel`
+#    # TODO Add all subdirs of dependencies
+#    printf 'set buffer clang_options "-I. -I%s/software/include";' "${git_root}"
+#  }
+#}
+
+hook global WinSetOption filetype=rust %{
+  rust-enable-autocomplete
+}
+
+hook global WinSetOption filetype=asciidoc %{
+  set window autowrap_column 80
+  autowrap-enable
+}
+hook global WinSetOption filetype=markdown %{
+  set window autowrap_column 80
+  autowrap-enable
+}
