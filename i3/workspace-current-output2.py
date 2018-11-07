@@ -22,7 +22,7 @@ if __name__ == "__main__":
     current_output = None
     ws_is_visible = False
     for w in ipc_query(req="get_workspaces"):
-        if w['name'] == newworkspace:
+        if w['name'] == newworkspace or str(w['num']) == newworkspace:
             current_output = w['output']
             ws_is_visible = w['visible']
         if w['focused']:
@@ -36,9 +36,9 @@ if __name__ == "__main__":
     # If the workspace is not shown on any display we can just switch over to
     # it
     if not ws_is_visible:
-        print(ipc_query(msg="workspace " + newworkspace + ";" +
+        print(ipc_query(msg="workspace number " + newworkspace + ";" +
             "move workspace to output " + active_output + ";" +
-            "workspace " + newworkspace + ";"))
+            "workspace number " + newworkspace + ";"))
         exit(0)
 
     # Otherwise it seems that the workspace is currently shown on another
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     # Move the current workspace to the display of the new workspace
     cmd1 = "move workspace to output " + current_output + ";"
     # Switch to the new workspace
-    cmd2 = "workspace " + newworkspace + ";"
+    cmd2 = "workspace number " + newworkspace + ";"
     # Move the new workspace to the display I'm currently working on
     cmd3 = "move workspace to output " + active_output + ";"
     # Switch to the new workspace
