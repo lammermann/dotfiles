@@ -64,22 +64,8 @@ map -docstring "close current window" global view c <esc>:quit<ret>
 # Goto bindings
 map -docstring "Your kakrc" global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret>
 
-# TODO implement replace Mode and bind it to something
-#declare-user-mode replace
-
-# overwrite a'la vim's R replace mode
-def overwrite %{
-  try %{
-    hook buffer -group overwrite InsertChar .* %{exec <right><backspace>}
-    map buffer insert <backspace> <left>
-    hook buffer -group overwrite InsertEnd .* %{
-      remove-hooks buffer overwrite
-      unmap buffer insert <backspace> <left>
-    }
-    exec i
-  }
-}
-map global normal <s-r> ': overwrite<ret>'
+# vim like replace mode
+map global normal <c-r> ':<space>replace<ret>'
 
 # Select xml object tags with object selection
 map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
