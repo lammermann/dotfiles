@@ -117,6 +117,11 @@ eval %sh{kak-lsp --kakoune -s $kak_session}
 #  }
 #}
 
+hook global WinSetOption filetype=python %{
+  set buffer tabstop 4
+  set buffer indentwidth 4
+}
+
 hook global WinSetOption filetype=rust %{
   rust-enable-autocomplete
 }
