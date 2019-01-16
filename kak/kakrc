@@ -30,7 +30,7 @@ alias global qa kill
 
 evaluate-commands %sh{
   autoload_directory() {
-    find -L "$1" -type f -name '*\.kak' \
+    find -L "$1" -maxdepth 3 -type f -name '*\.kak' \
       -exec printf 'try %%{ source "%s" } catch %%{ echo -debug Autoload: could not load "%s" }\n' '{}' '{}' \;
   }
 
@@ -61,6 +61,18 @@ hook global GlobalSetOption gdb_started=false %{
   unmap global normal <f9>    ': gdb-toggle-breakpoint<ret>'
   unmap global normal <f5>    ': gdb-continue<ret>'
 }
+
+#fzf
+source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-buffer.kak"
+source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-cd.kak"
+source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-file.kak"
+source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-search.kak"
+source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-vcs.kak"
+source "%val{config}/plugins/fzf/rc/fzf-modules/VCS/fzf-git.kak"
+
+set-option global fzf_file_command 'rg'
+
+map global normal <c-p> ': fzf-mode<ret>'
 
 ################################################################################
 # Mappings
@@ -128,6 +140,12 @@ define-command ide %{
 
 # Enable language server
 eval %sh{kak-lsp --kakoune -s $kak_session}
+lsp-enable
+
+map global normal <c-l> ': enter-user-mode lsp<ret>'
+
+set global lsp_insert_spaces true
+set global lsp_tab_size 2
 
 #hook global WinSetOption filetype=(c|cpp) %{
 #  clang-enable-autocomplete; clang-enable-diagnostics;
@@ -140,20 +158,24 @@ eval %sh{kak-lsp --kakoune -s $kak_session}
 #  }
 #}
 
+hook global WinSetOption filetype=(c|cpp) %{
+  #hook window BufWritePre .* lsp-formatting-sync
+}
+
 hook global WinSetOption filetype=python %{
   set buffer tabstop 4
   set buffer indentwidth 4
+  set buffer lsp_insert_spaces true
+  set buffer lsp_tab_size 4
+  hook window BufWritePre .* lsp-formatting-sync
 }
 
 hook global WinSetOption filetype=rust %{
   rust-enable-autocomplete
+  hook window BufWritePre .* lsp-formatting-sync
 }
 
-hook global WinSetOption filetype=asciidoc %{
-  set window autowrap_column 80
-  autowrap-enable
-}
-hook global WinSetOption filetype=markdown %{
+hook global WinSetOption filetype=(asciidoc|markdown) %{
   set window autowrap_column 80
   autowrap-enable
 }
