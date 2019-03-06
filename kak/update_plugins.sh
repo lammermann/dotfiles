@@ -18,5 +18,5 @@ git subtree pull -P kak/plugins/kakoune-phantom-selection https://github.com/occ
 git subtree pull -P kak/plugins/kakoune-sudo-write https://github.com/occivink/kakoune-sudo-write.git master
 git subtree pull -P kak/plugins/kakoune-vertical-selection https://github.com/occivink/kakoune-vertical-selection.git master
 git subtree pull -P kak/plugins/replace.kak https://github.com/alexherbo2/replace.kak.git master
-git subtree pull -P kak/plugins/fzf.kak https://github.com/andreyorst/fzf.kak.git master
+git subtree pull -P kak/plugins/fzf https://github.com/andreyorst/fzf.kak.git master
 
