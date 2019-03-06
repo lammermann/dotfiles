@@ -1,6 +1,6 @@
 # kakoune-gdb
 
-[kakoune](http://kakoune.org) plugin to provide integration with gdb.
+[kakoune](http://kakoune.org) plugin for gdb integration.
 
 [![demo](https://asciinema.org/a/164340.png)](https://asciinema.org/a/164340)
 
@@ -8,7 +8,7 @@
 
 Add `gdb.kak` to your autoload dir: `~/.config/kak/autoload/`, or source it manually.
 
-This script has hard dependencies on `gdb` (>= 7.12), `socat`, `perl` as well as the usual POSIX environment. There is also on optional dependency on `rr`.
+You need at least Kakoune v2019.01.20. In addition, this script has hard dependencies on `gdb` (>= 7.12), `socat`, `perl` as well as the usual POSIX environment. There is also on optional dependency on `rr`.
 
 ## Usage
 
@@ -22,13 +22,16 @@ There are multiple ways to do this, detailed below:
 If you wish to start a new debugging session, you should call `gdb-session-new`. A new gdb instance will be started, already connected to kakoune.
 Any additional command parameters will be passed to gdb (in particular, the executable you wish to debug).
 
+If you wish to use a different program than `gdb` (for example a wrapper script like `rust-gdb`), you can set the `gdb_program` option.
+
 #### Using rr
 
 If you use [rr](http://rr-project.org/), you can call `rr-session-new`. A new gdb instance will be started with the latest rr recording.
 
 #### Connecting to an existing session
 
-If you already have a running session of gdb but want to make kakoune aware of it, call `gdb-session-connect`. The infobox will show you a command that you should call in gdb directly. Once that is done, kakoune will be connected to gdb and all pre-existing gdb state will be shown.
+If you already have a running session of gdb but want to make kakoune aware of it, call `gdb-session-connect`. The infobox will show you a command that you should call in gdb directly. Once that is done, kakoune will be connected to gdb and all pre-existing gdb state will be shown.  
+**Warning**: for this to work properly, the `mi-async` gdb variable must be set to `on` BEFORE the debugged program has been started.
 
 ### Controlling gdb
 
