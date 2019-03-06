@@ -11,6 +11,12 @@
 try %{ declare-user-mode fzf } catch %{ echo -markup "{Error}Can't declare mode 'fzf' - already exists" }
 
 # Options
+declare-option -docstring 'implementation of fzf that you want to use.
+Currently supported implementations:
+    fzf:  github.com/junegunn/fzf
+    sk: github.com/lotabout/skim' \
+str fzf_implementation 'fzf'
+
 declare-option -docstring 'allow showing preview window
 Default value:
     true
@@ -63,6 +69,38 @@ Best used with mapping like:
 " \
 fzf-mode %{ try %{ evaluate-commands 'enter-user-mode fzf' } }
 
+define-command -hidden fzf-vertical -params .. %{
+    try %{
+        tmux-terminal-vertical kak -c %val{session} -e "%arg{@}"
+    } catch %{
+        tmux-new-vertical "%arg{@}"
+    }
+}
+
+define-command -hidden fzf-horizontal -params .. %{
+    try %{
+        tmux-terminal-horizontal kak -c %val{session} -e "%arg{@}"
+    } catch %{
+        tmux-new-horizontal "%arg{@}"
+    }
+}
+
+define-command -hidden fzf-window -params .. %{
+    try %sh{
+        if [ -n "$kak_client_env_TMUX" ]; then
+            printf "%s\n" 'tmux-terminal-window kak -c %val{session} -e "%arg{@}"'
+        else
+            printf "%s\n" 'x11-terminal kak -c %val{session} -e "%arg{@}"'
+        fi
+    } catch %sh{
+        if [ -n "$kak_client_env_TMUX" ]; then
+            printf "%s\n" 'tmux-new-window "%arg{@}"'
+        else
+            printf "%s\n" 'x11-new "%arg{@}"'
+        fi
+    }
+}
+
 define-command -hidden -docstring \
 "fzf <command> <items command> [<fzf args> <extra commands>]: generic fzf command.
 This command can be used to create new fzf wrappers for various Kakoune or external
@@ -83,7 +121,7 @@ These are additional flags for fzf program, that are passed to it. You can check
 in fzf manual.
 
 <extra commands>
-This is extra commands that are preformed after fzf finishis and main command was
+This is extra commands that are preformed after fzf finishes and main command was
 executed. This can be used to invoke fzf back, like in fzf-cd command, or to execute
 any other Kakoune command that is meaningfull in current situation. This is more is
 a workaround of problem with executing composite commands, where fzf result should
@@ -134,11 +172,11 @@ fzf -params 2..4 %{ evaluate-commands %sh{
 
     tmp=$(mktemp ${TMPDIR:-/tmp}/kak-fzf-tmp.XXXXXX)
     fzfcmd=$(mktemp ${TMPDIR:-/tmp}/kak-fzfcmd.XXXXXX)
-    printf "%s\n" "cd $PWD && $preview_pos $items_command | SHELL=$(command -v sh) fzf $additional_flags > $tmp; rm $fzfcmd" > $fzfcmd
+    printf "%s\n" "cd \"$PWD\" && $preview_pos $items_command | SHELL=$(command -v sh) $kak_opt_fzf_implementation $additional_flags > $tmp; rm $fzfcmd" > $fzfcmd
     chmod 755 $fzfcmd
 
     if [ -n "$kak_client_env_TMUX" ]; then
-        [ -n "${tmux_height%%*%}" ] && measure="-p" || measure="-p"
+        [ -n "${tmux_height%%*%}" ] && measure="-l" || measure="-p"
         cmd="command tmux split-window $measure ${tmux_height%%%*} 'sh -c $fzfcmd'"
     elif [ -n "$kak_opt_termcmd" ]; then
         cmd="$kak_opt_termcmd 'sh -c $fzfcmd'"
@@ -159,11 +197,11 @@ fzf -params 2..4 %{ evaluate-commands %sh{
                 read action
                 case $action in
                     ctrl-w)
-                        [ -n "$kak_client_env_TMUX" ] && wincmd="tmux-new-window" || wincmd="x11-new" ;;
+                        wincmd="fzf-window" ;;
                     ctrl-s)
-                        wincmd="tmux-new-vertical" ;;
+                        wincmd="fzf-vertical" ;;
                     ctrl-v)
-                        wincmd="tmux-new-horizontal" ;;
+                        wincmd="fzf-horizontal" ;;
                     *)
                         if [ -n "$action" ]; then
                             printf "%s\n" "evaluate-commands -client $kak_client '$command' '$action'" | kak -p $kak_session
@@ -171,7 +209,7 @@ fzf -params 2..4 %{ evaluate-commands %sh{
                         fi ;;
                 esac
                 kakoune_command() {
-                    printf "%s\n" "evaluate-commands -client $kak_client $wincmd $command %{$1}"
+                    printf "%s\n" "evaluate-commands -client $kak_client $wincmd %{$command %{$1}}"
                     [ -n "$extra_action" ] && printf "%s\n" "evaluate-commands -client $kak_client $extra_action"
                 }
                 while read item; do
