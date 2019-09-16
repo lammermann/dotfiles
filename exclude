@@ -6,5 +6,12 @@
 *.pyo
 .svn
 *.o
+*.jar
+*.a
+*.so
+*.exe
+*.rlib
+*.dylib
+*.bin
 Thumbs.db
 .tags
