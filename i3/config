@@ -31,7 +31,8 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+t exec urxvt -cd "`xcwd`"
+bindsym $mod+t exec alacritty --working-directory "`xcwd`" -e nu
+bindsym $mod+e exec urxvt -cd "`xcwd`" -e kak
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -80,7 +81,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+Shift+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Shift+w layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -168,12 +169,22 @@ bar {
         position top
 }
 
+# to add new rules use xprop
 # Place browser on workspace 2
 for_window [class="Chromium"] move to workspace number 2, rename workspace 2 to "2: web";
+for_window [class="firefox"] move to workspace number 2, rename workspace 2 to "2: web";
 # Place mailprogram on workspace 5
 for_window [class="Thunderbird"] move to workspace number 5, rename workspace 5 to "5: mail"
 # Place vector draw program on workspace 6
 for_window [class="Inkscape"] move to workspace number 6, rename workspace 6 to "6: graphics"
+# Place virtualisation software on extra workspace (clients are on another workspace)
+for_window [class="VirtualBox Manager"] move to workspace number 11, rename workspace 11 to "virtualbox"
+# Place virtual maschine clients on workspace 10
+for_window [class="VirtualBox Machine"] move to workspace number 10, rename workspace 10 to "10: vbox machine"
+for_window [class="gtk-recordMyDesktop"] floating enable
+for_window [class="Gitk"] floating enable
+# Place Skype on extra workspace
+for_window [class="Skype"] move to workspace number 9, rename workspace 9 to "9: skype"
 
 # Start system programms
 exec --no-startup-id dex -a -s ~/.config/autostart -e i3 &
