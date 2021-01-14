@@ -18,9 +18,9 @@ alias vim='nvim'
 #===============================================================================
 # Variables {{{
 # Use vim as default editor
-export BROWSER=/usr/bin/chromium
-export EDITOR='/usr/bin/kak'
-export VISUAL='/usr/bin/kak'
+export BROWSER=firefox
+export EDITOR=kak
+export VISUAL=kak
 
 # export GNU_PG for vim
 export GPG_TTY=`tty`
@@ -33,13 +33,6 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
-
-# Modify luapath for local development
-#export LUA_INIT="package.path = './?.lua;$HOME/.luarocks/share/lua/5.1/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.1/?.so;' .. package.cpath"
-export LUA_INIT_5_2="package.path = './?.lua;$HOME/.luarocks/share/lua/5.2/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.2/?.so;' .. package.cpath"
-export LUA_INIT_5_3="package.path = './?.lua;$HOME/.luarocks/share/lua/5.3/?.lua;' .. package.path; package.cpath = './?.so;$HOME/.luarocks/lib/lua/5.3/?.so;' .. package.cpath"
-#export LUA_PATH="./?.lua;$HOME/.luarocks/share/lua/5.1/?.lua;/usr/share/luajit-2.0.0-beta10/?.lua;`lua -e 'print(package.path)'`"
-#export LUA_CPATH="./?.so;$HOME/.luarocks/lib/lua/5.1/?.so;`lua -e 'print(package.cpath)'`"
 
 # android tools
 export ANDROID_HOME="${HOME}/bin/android-sdk-linux"
@@ -113,15 +106,6 @@ function prompt_func() {
 }
 
 PROMPT_COMMAND=prompt_func
-# }}}
-#===============================================================================
-# ssh daemon starten {{{
-if [[ -o login ]]; then
-  echo "You are on a login shell. No ssh daemon will be started"
-else
-  eval $(gnome-keyring-daemon --start --components=pkcsll,secrets,ssh)
-  export SSH_AUTH_SOCK
-fi
 # }}}
 #===============================================================================
 # vim: fdm=marker:
