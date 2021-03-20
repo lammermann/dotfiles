@@ -41,9 +41,20 @@ in {
 
     git = {
       enable = true;
+      package = pkgs.gitAndTools.gitFull;
       delta.enable = true;
       userEmail = "kober@optisense.com";
       userName = "Benjamin Kober";
+      extraConfig = {
+        pull = {
+          ff = "only";
+        };
+      };
+    };
+
+    obs-studio = {
+      enable = true;
+      plugins = [ pkgs.obs-v4l2sink ];
     };
 
     neovim = {
@@ -63,16 +74,49 @@ in {
   home = {
     # packages I need
     packages = with pkgs; [
+      # coding
+      kakoune kak-lsp skim
       xclip # needed for kakoune clipboard support
       jq
-
-      openvpn
-
-      nix-index
-
+      # language servers
+      python-language-server nodePackages.bash-language-server
+      nodePackages.typescript-language-server rls
+      # vcs
       pkgsUnstable.pijul
 
-      pkgsUnstable.yed
+      # tools needed for coding at work and office
+      vscodium
+      qtcreator
+      libreoffice hunspellDicts.de_DE
+
+      # system tools
+      alacritty
+      feh xorg.xev dex xcwd python
+      w3m htop tmux p7zip xarchiver ripgrep bat
+      borgbackup
+      keepassxc
+
+      # documentation and analysis
+      asciidoctor
+      graphviz
+      # i need yed. but building it is to unstable since
+      # they often change their download packages. So i
+      # install it manuallly with nix-env
+      #pkgsUnstable.yed
+
+      # web, mail and multimedia
+      firefox
+      thunderbird
+      vlc
+
+      # networking tools
+      openvpn
+      sshfs
+
+      # nix administration tools
+      nix-index
+      nix-du
+
       pkgsUnstable.zoom-us
     ];
 
