@@ -60,6 +60,12 @@ in {
     neovim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [ fugitive ];
+      extraConfig = ''
+      set nocompatible
+      set nobackup
+      set virtualedit=block
+      set whichwrap=b,s,h,l
+      '';
     };
   };
 
