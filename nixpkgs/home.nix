@@ -119,6 +119,15 @@ in {
       openvpn
       sshfs
 
+      # video and image editing
+      obs-studio obs-v4l2sink
+      openshot-qt
+      blender
+      gimp inkscape
+
+      # cad and eda
+      kicad freecad
+
       # nix administration tools
       nix-index
       nix-du
