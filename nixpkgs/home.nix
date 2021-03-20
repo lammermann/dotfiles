@@ -119,6 +119,8 @@ in {
       openvpn
       sshfs
 
+      wireshark nmap-graphical # is rustscan a better alternativ to nmap?
+
       # video and image editing
       obs-studio obs-v4l2sink
       openshot-qt
