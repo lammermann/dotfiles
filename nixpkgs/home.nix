@@ -3,6 +3,10 @@
 let
 
   pkgsUnstable = import <nixpkgs-unstable> {};
+  python-environment = python-packages: with python-packages; [
+    i3ipc
+  ];
+  python3 = pkgs.python38.withPackages python-environment;
 
 in {
   # Let Home Manager install and manage itself.
@@ -97,7 +101,7 @@ in {
 
       # system tools
       alacritty
-      feh xorg.xev dex xcwd python
+      feh xorg.xev dex xcwd python python3
       w3m htop tmux p7zip xarchiver ripgrep bat
       borgbackup
       keepassxc

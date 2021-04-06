@@ -21,7 +21,7 @@ args = parser.parse_args()
 
 def find_fullscreen(con):
     # XXX remove me when this method is available on the con in a release
-    return [c for c in con.descendents()
+    return [c for c in con.descendants()
             if c.type == 'con' and c.fullscreen_mode]
 
 def set_dpms(state):
