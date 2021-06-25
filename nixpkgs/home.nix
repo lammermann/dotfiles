@@ -2,7 +2,8 @@
 
 let
 
-  pkgsUnstable = import <nixpkgs-unstable> {};
+  sources = import ./nix/sources.nix;
+  pkgsUnstable = import sources.nixpkgs {};
   python-environment = python-packages: with python-packages; [
     i3ipc
   ];
@@ -58,7 +59,6 @@ in {
 
     obs-studio = {
       enable = true;
-      plugins = [ pkgs.obs-v4l2sink ];
     };
 
     neovim = {
@@ -88,6 +88,7 @@ in {
       kakoune kak-lsp skim
       xclip # needed for kakoune clipboard support
       jq
+      watchexec # or entr?
       # language servers
       python-language-server nodePackages.bash-language-server
       nodePackages.typescript-language-server rls
@@ -135,6 +136,7 @@ in {
       kicad freecad
 
       # nix administration tools
+      niv
       nix-index
       nix-du
 

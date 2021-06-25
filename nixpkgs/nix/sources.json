@@ -1,0 +1,50 @@
+{
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
+        "homepage": "https://nix-community.github.io/home-manager/",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "21ac4c499b181b9171770f79105241e235046a7c",
+        "sha256": "01njxshy7mkkb2pkpimk8bfk3c2b0m5a3db5b1zfa2j1zkp4fca7",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/21ac4c499b181b9171770f79105241e235046a7c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "e0ca65c81a2d7a4d82a189f1e23a48d59ad42070",
+        "sha256": "1pq9nh1d8nn3xvbdny8fafzw87mj7gsmp6pxkdl65w2g18rmcmzx",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/e0ca65c81a2d7a4d82a189f1e23a48d59ad42070.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixpkgs-unstable",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9dde08d104a9ce3b22ad375b21d3270a7589fb7a",
+        "sha256": "1zaikyv7x4p4b166l2sib1083dasvjdbmbxsg5vzcwa0ibqi90hv",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/9dde08d104a9ce3b22ad375b21d3270a7589fb7a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-stable": {
+        "branch": "release-21.05",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c720e790dfdcae721fb874a010eade17a92fa940",
+        "sha256": "0cxq101wjfaq3kl4av6x1j8fs1l7h2x95p4lj570sjifpg4rnqk7",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/c720e790dfdcae721fb874a010eade17a92fa940.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
