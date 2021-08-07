@@ -35,6 +35,9 @@ in {
       historyControl = ["erasedups" "ignorespace"];
       historyIgnore = ["ls" "cd" "exit"];
       initExtra = builtins.readFile ../bashrc;
+      bashrcExtra = ''
+        export NIX_PATH="nixpkgs=${sources."nixpkgs-stable"}:home-manager=${sources."home-manager"}"
+      '';
     };
 
     readline = {

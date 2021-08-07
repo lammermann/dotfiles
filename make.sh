@@ -36,7 +36,10 @@ case "$mode" in
   # TODO add options for home-manager. maybe interactive asking
 
   "switch")
-    cd nixpkgs/ && nix-shell --run "home-manager --show-trace switch"
+    cd nixpkgs/
+    export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix 
+    trace nix-shell --run 'sudo nixos-rebuild -I nixpkgs=$NIXPKGS switch'
+    trace nix-shell --run "home-manager --show-trace switch"
     ;;
   "update")
     cd nixpkgs/ && nix-shell --run "niv update"
