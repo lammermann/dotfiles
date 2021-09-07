@@ -102,6 +102,9 @@ map -docstring "Your kakrc" global goto K <esc>:edit!<space>~/.config/kak/kakrc<
 # vim like replace mode
 map global normal <c-r> ':<space>replace<ret>'
 
+# toggle case on ~
+map global normal ~ <a-`>
+
 # Select xml object tags with object selection
 map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
 
