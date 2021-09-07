@@ -178,7 +178,6 @@ hook global BufSetOption filetype=json %{
 }
 
 hook global WinSetOption filetype=rust %{
-  rust-enable-autocomplete
   hook window BufWritePre .* lsp-formatting-sync
 }
 
