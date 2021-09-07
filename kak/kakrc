@@ -168,7 +168,7 @@ hook global WinSetOption filetype=(c|cpp) %{
 hook global WinSetOption filetype=python %{
   set buffer tabstop 4
   set buffer indentwidth 4
-  set buffer lsp_insert_spaces true
+  set buffer lsp_insert_spaces false
   set buffer lsp_tab_size 4
   hook window BufWritePre .* lsp-formatting-sync
 }
