@@ -173,6 +173,10 @@ hook global WinSetOption filetype=python %{
   hook window BufWritePre .* lsp-formatting-sync
 }
 
+hook global BufSetOption filetype=json %{
+  set-option buffer formatcmd "jq --indent %opt{tabstop} ."
+}
+
 hook global WinSetOption filetype=rust %{
   rust-enable-autocomplete
   hook window BufWritePre .* lsp-formatting-sync
