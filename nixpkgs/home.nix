@@ -135,6 +135,7 @@ in {
       openshot-qt
       blender
       gimp inkscape
+      tev
 
       # cad and eda
       kicad freecad
