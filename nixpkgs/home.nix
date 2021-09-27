@@ -101,7 +101,6 @@ in {
 
       # tools needed for coding at work and office
       vscodium
-      qtcreator
       libreoffice hunspellDicts.de_DE
 
       # system tools
