@@ -34,7 +34,7 @@ in {
       enable = true;
       historyControl = ["erasedups" "ignorespace"];
       historyIgnore = ["ls" "cd" "exit"];
-      initExtra = builtins.readFile ../bashrc;
+      initExtra = builtins.readFile ../bashrc.sh;
       bashrcExtra = ''
         export NIX_PATH="nixpkgs=${sources."nixpkgs-stable"}:home-manager=${sources."home-manager"}"
       '';
