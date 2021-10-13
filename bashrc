@@ -103,6 +103,7 @@ function prompt_func() {
     else
         PS1="${prompt}${LIGHT_RED}\\\$${COLOR_NONE} "
     fi
+    trap 'echo -ne "\033]2;$(pwd); $(history 1 | sed "s/^[ ]*[0-9]*[ ]*//g")\007"' DEBUG
 }
 
 PROMPT_COMMAND=prompt_func
