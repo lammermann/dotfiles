@@ -106,6 +106,7 @@ in {
       # system tools
       alacritty
       feh xorg.xev dex xcwd python python3
+      i3-layout-manager rofi
       w3m htop tmux p7zip xarchiver ripgrep bat
       borgbackup
       keepassxc

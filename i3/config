@@ -44,6 +44,8 @@ bindsym $mod+d exec --no-startup-id ~/.screenlayout/`ls ~/.screenlayout/ | dmenu
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 bindsym $mod+x exec --no-startup-id i3-dmenu-desktop
+# select a saved layout for the current workspace
+bindsym $mod+m exec --no-startup-id 'layout_manager'
 
 # change focus
 bindsym $mod+l focus right

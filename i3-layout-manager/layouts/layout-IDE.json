@@ -1,0 +1,83 @@
+[
+	{
+		"border": "normal",
+		"floating": "auto_off",
+		"fullscreen_mode": 0,
+		"layout": "splitv",
+		"marks": [],
+		"percent": null,
+		"type": "con",
+		"nodes": [
+			{
+				"border": "normal",
+				"floating": "auto_off",
+				"layout": "splith",
+				"marks": [],
+				"percent": 0.753080568720379,
+				"type": "con",
+				"nodes": [
+					{
+						"border": "normal",
+						"current_border_width": 2,
+						"floating": "auto_off",
+						"geometry": {
+							"height": 600,
+							"width": 800,
+							"x": 0,
+							"y": 0
+						},
+						"marks": [],
+						"name": "docs - Kakoune",
+						"percent": 0.5,
+						"swallows": [
+							{
+								"title": "docs@\\[\\d*\\] - Kakoune$"
+							}
+						],
+						"type": "con"
+					},
+					{
+						"border": "normal",
+						"current_border_width": 2,
+						"floating": "auto_off",
+						"geometry": {
+							"height": 600,
+							"width": 800,
+							"x": 0,
+							"y": 0
+						},
+						"marks": [],
+						"name": "main - Kakoune",
+						"percent": 0.5,
+						"swallows": [
+							{
+								"title": "main@\\[\\d*\\] - Kakoune$"
+							}
+						],
+						"type": "con"
+					}
+				]
+			},
+			{
+				"border": "normal",
+				"current_border_width": 2,
+				"floating": "auto_off",
+				"geometry": {
+					"height": 600,
+					"width": 800,
+					"x": 0,
+					"y": 0
+				},
+				"marks": [],
+				"name": "tools - Kakoune",
+				"percent": 0.246919431279621,
+				"swallows": [
+					{
+						"title": "tools@\\[\\d*\\] - Kakoune$"
+					}
+				],
+				"type": "con"
+			}
+		]
+	}
+]
