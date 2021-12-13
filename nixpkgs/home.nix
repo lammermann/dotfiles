@@ -62,7 +62,6 @@ in {
 
     obs-studio = {
       enable = true;
-      plugins = [ pkgs.obs-v4l2sink ];
     };
 
     neovim = {
@@ -131,7 +130,6 @@ in {
       wireshark nmap-graphical # is rustscan a better alternativ to nmap?
 
       # video and image editing
-      obs-studio obs-v4l2sink
       openshot-qt
       blender
       gimp inkscape
