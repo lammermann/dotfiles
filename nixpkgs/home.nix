@@ -113,8 +113,8 @@ in {
       # documentation and analysis
       asciidoctor
       graphviz
-      # i need yed. but building it is to unstable since
-      # they often change their download packages. So i
+      # I need yed. But building it is to unstable since
+      # they often change their download packages. So I
       # install it manuallly with nix-env
       #pkgsUnstable.yed
 
