@@ -144,6 +144,10 @@ in {
       nix-du
 
       pkgsUnstable.zoom-us
+
+      # other personal stuff
+      anki
+      pkgsUnstable.tuhi
     ];
 
     sessionVariables = {
