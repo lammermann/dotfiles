@@ -119,7 +119,7 @@ in {
       #pkgsUnstable.yed
 
       # web, mail and multimedia
-      firefox
+      firefox qutebrowser
       thunderbird
       vlc
 
