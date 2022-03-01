@@ -8,6 +8,7 @@ let
     i3ipc
   ];
   python3 = pkgs.python38.withPackages python-environment;
+  mynerdfonts = pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; };
 
 in {
   # Let Home Manager install and manage itself.
@@ -47,6 +48,8 @@ in {
 
     bat.enable = true;
 
+    starship.enable = true;
+
     git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
@@ -84,6 +87,8 @@ in {
     enableBashIntegration = true;
   };
 
+  fonts.fontconfig.enable = true;
+
   home = {
     # packages I need
     packages = with pkgs; [
@@ -104,6 +109,7 @@ in {
 
       # system tools
       alacritty
+      mynerdfonts
       feh xorg.xev dex xcwd python python3
       i3-layout-manager rofi
       w3m htop tmux p7zip xarchiver ripgrep bat
