@@ -75,6 +75,10 @@ in {
       "wireshark"
       "video"
     ];
+    # Enable sub uid ranges for podman
+    subUidRanges = [{ startUid = 100000; count = 65536; }];
+    subGidRanges = [{ startGid = 100000; count = 65536; }];
+
   };
 
   virtualisation.virtualbox.host.enable = true;
