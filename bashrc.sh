@@ -22,9 +22,6 @@ export BROWSER=firefox
 export EDITOR=kak
 export VISUAL=kak
 
-# export GNU_PG for vim
-export GPG_TTY=`tty`
-
 # Man farbig gestalten
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;34m'
