@@ -156,8 +156,5 @@ in {
       pkgsUnstable.tuhi
     ];
 
-    sessionVariables = {
-      EDITOR = "kak";
-    };
   };
 }
