@@ -1,0 +1,14 @@
+@theme "/home/benjamin/.nix-profile/share/rofi/themes/glue_pro_blue.rasi"
+
+element {
+    orientation: horizontal;
+    children: [ element-icon, element-text ];
+    border:  0;
+    padding: 1px;
+    spacing: 5px;
+}
+
+element-icon {
+    size: 1.5em;
+    vertical-align: 0.5;
+}
