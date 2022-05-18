@@ -33,8 +33,6 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Add Rust Path to PATH
 export PATH="$PATH:$HOME/.cargo/bin"
-# Add Kakoune utils
-export PATH="$PATH:$HOME/.config/kak/utils/kcr/bin"
 # }}}
 #===============================================================================
 # Commands {{{
