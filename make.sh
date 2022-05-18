@@ -11,6 +11,7 @@ function trace() {
 function usage() {
 cat << EOF
 Usage:
+./make.sh build
 ./make.sh switch
 ./make.sh update
 ./make.sh info
@@ -35,6 +36,21 @@ shift
 case "$mode" in
   # TODO add options for home-manager. maybe interactive asking
 
+  "build")
+    cd nixpkgs/
+    export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix
+    trace nix-shell --keep NIXOS_CONFIG --run 'nixos-rebuild -I nixpkgs=$NIXPKGS build'
+    drv="$(readlink ./result)"
+
+    trace nix-shell --run "home-manager --show-trace build"
+    homedrv="$(readlink ./result)"
+
+    echo "System Drv: $drv"
+    echo
+    echo "========================="
+    echo "Home Drv: $homedrv"
+    #trace nix store diff-closures /var/run/current-system/ "$homedrv" || true
+    ;;
   "switch")
     cd nixpkgs/
     export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix
@@ -45,6 +61,7 @@ case "$mode" in
     ;;
   "update")
     cd nixpkgs/ && nix-shell --run "niv update"
+    cd .. && "$0" build
     ;;
   "info")
     drv="$(realpath /var/run/current-system)"
@@ -79,7 +96,7 @@ case "$mode" in
     fi
     ;;
   "cleanup")
-    trace sudo nix-collect-garbage --delete-older-than 7d
+    trace sudo nix-collect-garbage --delete-older-than 10d
     trace sudo nix optimise-store
     ;;
   "help")
