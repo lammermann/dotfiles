@@ -133,7 +133,7 @@ in {
       openvpn
       sshfs
 
-      wireshark nmap-graphical # is rustscan a better alternativ to nmap?
+      wireshark # nmap-graphical # is rustscan a better alternative to nmap?
 
       # video and image editing
       openshot-qt

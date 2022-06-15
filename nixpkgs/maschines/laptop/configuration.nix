@@ -52,7 +52,7 @@ in {
 
   networking.hostName = "benjamin"; # Define your hostname.
   networking.networkmanager.enable = true;
-  networking.networkmanager.packages = [ pkgs.networkmanager_openvpn ];
+  networking.networkmanager.packages = [ pkgs.networkmanager-openvpn ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
