@@ -150,6 +150,10 @@ map global normal <c-l> ': enter-user-mode lsp<ret>'
 set global lsp_insert_spaces true
 set global lsp_tab_size 2
 
+evaluate-commands %sh{
+  kcr init kakoune
+}
+
 #hook global WinSetOption filetype=(c|cpp) %{
 #  clang-enable-autocomplete; clang-enable-diagnostics;
 #
@@ -175,6 +179,10 @@ hook global WinSetOption filetype=python %{
 
 hook global BufSetOption filetype=json %{
   set-option buffer formatcmd "jq --indent %opt{tabstop} ."
+}
+
+hook global BufSetOption filetype=xml %{
+  set-option buffer formatcmd "tidy -q -xml --indent yes --indent-spaces %opt{tabstop}"
 }
 
 hook global WinSetOption filetype=rust %{

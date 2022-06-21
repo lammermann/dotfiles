@@ -93,8 +93,9 @@ in {
     # packages I need
     packages = with pkgs; [
       # coding
-      kakoune kak-lsp skim
+      kakoune kak-lsp kakoune-cr
       xclip # needed for kakoune clipboard support
+      html-tidy
       jq
       watchexec # or entr?
       # language servers
@@ -111,7 +112,7 @@ in {
       alacritty
       mynerdfonts
       feh xorg.xev dex xcwd python python3
-      i3-layout-manager rofi
+      i3-layout-manager rofi fzf
       w3m htop tmux p7zip xarchiver ripgrep bat
       borgbackup
       keepassxc
@@ -139,7 +140,6 @@ in {
       openshot-qt
       blender
       gimp inkscape
-      tev
 
       # cad and eda
       kicad freecad
