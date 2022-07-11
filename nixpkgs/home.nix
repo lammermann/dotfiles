@@ -146,8 +146,7 @@ in {
 
       # nix administration tools
       niv
-      nix-index
-      nix-du
+      nix-tree
 
       pkgsUnstable.zoom-us
 
