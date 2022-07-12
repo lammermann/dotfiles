@@ -1,0 +1,10 @@
+% fs, filesystem
+
+# Delete all broken symlinks in the current directory
+find -L . -name . -o -type d -prune -o -type l -exec rm {} +
+
+# Folder size
+du -sh
+
+# Resize pngs to 128x128
+\ls ./*[^(_128)].png | sed 's/.png//' | xargs -I% convert "%.png" -resize 128x128 "%_128.png"

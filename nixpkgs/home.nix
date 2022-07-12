@@ -50,6 +50,8 @@ in {
 
     starship.enable = true;
 
+    navi.enable = true;
+
     fzf.enable = true;
 
     git = {

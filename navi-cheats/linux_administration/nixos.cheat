@@ -1,0 +1,8 @@
+% nixos, nix
+
+# find all gc roots
+nix-store --gc --print-roots | grep -v '/proc/'
+
+# inspect all gc roots with nix tree
+nix-store --gc --print-roots | grep -v '/proc/' | grep -v '^{censored}' | grep -Po '(?<= -> ).*' | xargs -o nix-tree
+

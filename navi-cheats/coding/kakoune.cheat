@@ -1,0 +1,29 @@
+% kak kakoune
+
+# Get variable from kakoune as json
+kcr get --value <variable>
+
+# Get variable from kakoune as raw text list
+kcr get --raw --value <variable>
+
+# Edit file in current direktory
+kcr edit <file>
+
+# Connect to a kakoune session
+kcr attach <session>
+
+# Create a new session
+kcr create
+
+# Print buffer content
+kcr --raw cat <buffer>
+
+# Print buffer content as json
+kcr cat <buffer>
+
+# Send (execute) command on kakoune client
+kcr send <command>
+
+$ session: kcr list | jq '.[].session' | uniq --- --column 1
+$ buffer:  kcr get --raw --value buflist
+$ file:    ls
