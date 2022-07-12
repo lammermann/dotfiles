@@ -98,7 +98,7 @@ in {
       kakoune kak-lsp kakoune-cr
       xclip # needed for kakoune clipboard support
       html-tidy
-      jq
+      jq jless
       watchexec # or entr?
       # language servers
       python-language-server nodePackages.bash-language-server
