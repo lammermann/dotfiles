@@ -50,6 +50,8 @@ in {
 
     starship.enable = true;
 
+    fzf.enable = true;
+
     git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
