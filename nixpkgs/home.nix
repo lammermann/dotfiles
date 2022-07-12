@@ -112,6 +112,7 @@ in {
 
       # system tools
       alacritty
+      fd
       mynerdfonts
       feh xorg.xev dex xcwd python python3
       i3-layout-manager rofi fzf
