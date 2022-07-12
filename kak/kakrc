@@ -42,6 +42,8 @@ evaluate-commands %sh{
 ################################################################################
 # Plugin configuration
 
+hook global WinCreate .* %{ kakboard-enable }
+
 # gdb
 set-option global gdb_location_symbol "->"
 

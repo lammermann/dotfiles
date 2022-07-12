@@ -97,7 +97,10 @@ in {
     # packages I need
     packages = with pkgs; [
       # coding
-      kakoune kak-lsp kakoune-cr
+      (kakoune.override {
+        plugins = with pkgs.kakounePlugins; [ kakboard ];
+      })
+      kak-lsp kakoune-cr
       xclip # needed for kakoune clipboard support
       html-tidy
       jq jless
