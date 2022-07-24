@@ -138,6 +138,10 @@ map global fzf -docstring "find symbol in workspace" 'l' '<esc>: lsp-workspace-s
 # Helper commands
 
 define-command ide %{
+  nop %sh{
+    layout_manager IDE
+  }
+
   rename-client main
   set-option global jumpclient main
 
