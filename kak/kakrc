@@ -42,6 +42,16 @@ evaluate-commands %sh{
 ################################################################################
 # Plugin configuration
 
+# Enable language server
+eval %sh{kak-lsp --kakoune -s $kak_session}
+lsp-enable
+
+set global lsp_insert_spaces true
+
+evaluate-commands %sh{
+  kcr init kakoune
+}
+
 hook global WinCreate .* %{ kakboard-enable }
 
 # gdb
@@ -110,6 +120,11 @@ map global normal ~ <a-`>
 # Select xml object tags with object selection
 map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
 
+# lsp menu
+map global normal <c-l> ': enter-user-mode lsp<ret>'
+
+map global normal <c-t> '<esc>: connect terminal<ret>'
+
 ################################################################################
 # Highlight the word under the cursor
 
@@ -142,19 +157,6 @@ define-command ide %{
 
 ################################################################################
 # Automatic settings for filetypes
-
-# Enable language server
-eval %sh{kak-lsp --kakoune -s $kak_session}
-lsp-enable
-
-map global normal <c-l> ': enter-user-mode lsp<ret>'
-
-set global lsp_insert_spaces true
-set global lsp_tab_size 2
-
-evaluate-commands %sh{
-  kcr init kakoune
-}
 
 #hook global WinSetOption filetype=(c|cpp) %{
 #  clang-enable-autocomplete; clang-enable-diagnostics;
