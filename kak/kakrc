@@ -74,18 +74,6 @@ hook global GlobalSetOption gdb_started=false %{
   unmap global normal <F5>    ': gdb-continue<ret>'
 }
 
-#fzf
-source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-buffer.kak"
-source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-cd.kak"
-source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-file.kak"
-source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-search.kak"
-source "%val{config}/plugins/fzf/rc/fzf-modules/fzf-vcs.kak"
-source "%val{config}/plugins/fzf/rc/fzf-modules/VCS/fzf-git.kak"
-
-set-option global fzf_file_command 'rg'
-
-map global normal <c-p> ': fzf-mode<ret>'
-
 ################################################################################
 # Mappings
 
@@ -110,9 +98,8 @@ map -docstring "close current window" global view c <esc>:quit<ret>
 
 # Goto bindings
 map -docstring "Your kakrc" global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret>
-
-# vim like replace mode
-map global normal <c-r> ':<space>replace<ret>'
+map global goto -docstring "select buffer" 'B' '<esc>: connect terminal kcr-fzf-buffers<ret>'
+map global goto -docstring "select file" 'F' '<esc>: connect terminal kcr-fzf-files<ret>'
 
 # toggle case on ~
 map global normal ~ <a-`>
@@ -124,6 +111,12 @@ map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>
 map global normal <c-l> ': enter-user-mode lsp<ret>'
 
 map global normal <c-t> '<esc>: connect terminal<ret>'
+
+# fuzzy finding
+try %{ declare-user-mode fzf } catch %{ echo -markup "{Error}Can't declare mode 'fzf' - already exists" }
+map global normal <c-p> '<esc>: enter-user-mode fzf<ret>'
+map global fzf -docstring "find file with grep" 'g' '<esc>: connect terminal kcr-fzf-grep<ret>'
+map global fzf -docstring "find symbol in workspace" 'l' '<esc>: lsp-workspace-symbol-incr<ret>'
 
 ################################################################################
 # Highlight the word under the cursor
