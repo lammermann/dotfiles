@@ -104,7 +104,7 @@ in {
       xclip # needed for kakoune clipboard support
       html-tidy
       jq jless
-      watchexec # or entr?
+      watchexec entr
       # language servers
       python-language-server nodePackages.bash-language-server
       nodePackages.typescript-language-server rls
