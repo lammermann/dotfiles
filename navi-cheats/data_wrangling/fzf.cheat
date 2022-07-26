@@ -6,10 +6,9 @@ xclip -f | fzf --phony \
     --print0 \
     --sync \
     --ansi \
-    --preview 'xclip -o | <filter> '{q}' | <previewer>' \
-    --preview-window 'up:99%'
+    --preview 'xclip -o | <filter> '{q}'' \
+    --preview-window 'up:99%' \
     --bind 'enter:print-query'
 
 $ filter: echo 'jq awk rg kak sed' | tr ' ' '\n' --- --map "sed 's/jq/jq --color-output/;s/kak/kak -f/'"
-$ previewer: echo 'bat jless' | tr ' ' '\n' --- --map "sed 's/bat/bat --color=always/'"
 
