@@ -196,8 +196,6 @@ for_window [class="com-yworks-A-yEd" title="win0"] floating enable
 # Place Skype on extra workspace
 for_window [class="Skype"] move to workspace number 9, rename workspace 9 to "9: skype"
 
-# Start system programms
-exec --no-startup-id dex -a -s ~/.config/autostart -e i3 &
 # Set wallpaper
 exec --no-startup-id feh --bg-scale --randomize ~/Pictures/wallpaper/* &
 # Disable the screensaver if a program is fullscreen

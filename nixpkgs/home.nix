@@ -119,7 +119,7 @@ in {
       alacritty
       fd
       mynerdfonts
-      feh xorg.xev dex xcwd python python3
+      feh xorg.xev xcwd python python3
       i3-layout-manager rofi fzf
       w3m htop tmux p7zip xarchiver ripgrep bat
       borgbackup
