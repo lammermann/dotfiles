@@ -137,6 +137,7 @@ in {
       "nm-openvpn"
       "wireshark"
       "video"
+      "dialout"
     ];
     # Enable sub uid ranges for podman
     subUidRanges = [{ startUid = 100000; count = 65536; }];
