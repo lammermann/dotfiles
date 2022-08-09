@@ -36,6 +36,8 @@ in {
       historyControl = ["erasedups" "ignorespace"];
       historyIgnore = ["ls" "cd" "exit"];
       initExtra = builtins.readFile ../bashrc.sh;
+      # We need to make sure the nixpkgs path in the shell.nix is
+      # identical to our normal environment
       bashrcExtra = ''
         export NIX_PATH="nixpkgs=${sources."nixpkgs-stable"}:home-manager=${sources."home-manager"}"
       '';
