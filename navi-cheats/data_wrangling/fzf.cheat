@@ -10,5 +10,8 @@ xclip -f | fzf --phony \
     --preview-window 'up:99%' \
     --bind 'enter:print-query'
 
-$ filter: echo 'jq awk rg kak sed' | tr ' ' '\n' --- --map "sed 's/jq/jq --color-output/;s/kak/kak -f/'"
+$ filter: echo 'jq awk rg kak sed' | \
+    tr ' ' '\n' \
+    --- --map \
+    "sed 's/^jq$/jq --color-output/;s/^kak$/kak -n -f/'"
 
