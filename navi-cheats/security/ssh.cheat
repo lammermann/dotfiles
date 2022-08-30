@@ -10,11 +10,26 @@ ssh -A <user>@<server>
 ssh -i <sshkey> <user>@<server>
 
 # login to a server with a port
-ssh -p <port> <user>@<server>
+ssh <user>@<server>
 
 # login to a server with a key and port
-ssh -i <sshkey> -p <port> <user>@<server>
+ssh -i <sshkey> <user>@<server>
+
+# Copy file from server to local
+scp <user>@<server>:<file-to-send-path> <path-to-recieve>
+
+# Copy file from local to server
+scp <file-to-send> <user>@<server>:<where-to-put>
+
+# mount filesystem on server
+sshfs <<user>@<server>:<remote-dir> <mountpoint>
 
 $ user : echo -e "$(whoami)\nroot"
 $ sshkey : find ~/.ssh | grep -v known_hosts | grep -v config
-$ server : cat /etc/hosts | cut -f2 -d' '
+$ server : cat ~/.ssh/known_hosts | \
+    cut -f1 -d' ' | \
+    sed 's/,/\n/g;s/\[//g;s/\]//g' | \
+    uniq
+    --- --map \
+    kak -n -f '<a-s><a-s-k>:<ret>glh<a-s-k>$a:'
+

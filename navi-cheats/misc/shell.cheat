@@ -1,5 +1,5 @@
 
-% Shell Usage 
+% Shell Usage
 
 # Re-call last input with sudo
 sudo !!
@@ -70,21 +70,6 @@ find . -name '*.<txt>' -print
 # Go back to previous directory
 cd -
 
-# Make (empty) directory
-mkdir <dirname>
-
-# Remove (empty) directory
-rmdir <dirname>
-
-# Remove directory with all contents without prompt
-rm -rf <dirname>
-
-# Remove directory contents and keep directory
-rm -rf *
-
-# Change directory
-cd <dirname>
-
 % shell Symlinks
 
 # Create symlink
@@ -117,7 +102,7 @@ mv -i <current-filename> <new-filename>
 rm <filename-txt>
 
 # Write to file (will overwrite existing content)
-cat > <filename-txt> 
+cat > <filename-txt>
 
 # Search for a filename-(not content!) in the current directory
 find <filename-txt>
@@ -140,21 +125,8 @@ openssl enc -aes-256-cbc -e -in <sample-filename-txt> -out <sample-encrypted-txt
 # Decrypt file
 openssl enc -aes-256-cbc -d -in <sample-encrypted> -out <sample-filename>
 
-% Shell Server
-
-# Access via ssh
-ssh <username_remote>
-
-# Copy file from server to local
-scp <username_remote>:<file-to-send-path> <path-to-recieve> 
-
-# Copy file from local to server
-scp <file-to-send> <username_remote>:<where-to-put>
-
 # Escape files with spaces in name like this
 <path-to-file>\\\ <name-png>
-
-$ username_remote: cat ~/.ssh/config | grep -i "host "|sed 's/^[ \t]*//g' | awk '{print $2}'
 
 % Shell System
 
@@ -179,7 +151,7 @@ tail error.log -f -n 0
 % Shell Apps
 
 # Start appliction
-xdg-open <programme> 
+xdg-open <programme>
 
 # Open finder with current folder
 open .
