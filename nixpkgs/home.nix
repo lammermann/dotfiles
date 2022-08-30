@@ -151,9 +151,6 @@ in {
       blender
       gimp inkscape
 
-      # cad and eda
-      kicad freecad
-
       # nix administration tools
       niv
       nix-tree
