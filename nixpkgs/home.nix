@@ -109,7 +109,7 @@ in {
       watchexec entr
       # language servers
       python-language-server nodePackages.bash-language-server
-      nodePackages.typescript-language-server rls
+      nodePackages.typescript-language-server rust-analyzer
       # vcs
       pkgsUnstable.pijul
 
