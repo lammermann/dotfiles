@@ -128,7 +128,7 @@ in {
       keepassxc
 
       # documentation and analysis
-      asciidoctor
+      asciidoctor-with-extensions
       graphviz
       # I need yed. But building it is to unstable since
       # they often change their download packages. So I
