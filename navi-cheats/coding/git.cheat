@@ -1,11 +1,5 @@
 % git
 
-# Set global git user name
-git config --global user.name <name>
-
-# Set global git user email
-git config --global user.email <email>
-
 # Initializes a git repository
 git init
 
@@ -100,6 +94,11 @@ navi fn url::open 'https://github.com/pulls?&q=author:<user>+is:open+is:pr'
 # Checkout a branch from a fork
 git fetch origin pull/<pr_number>/head:pr/<pr_number> \
    && git checkout pr/<pr_number>
+
+# Use binary search to find the commit that introduced a bug
+git bisect start HEAD <old_commit>
+git bisect run <script>
+git bisect reset
 
 # Add a new module
 git submodule add <repository> <path>
