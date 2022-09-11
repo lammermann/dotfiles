@@ -52,8 +52,6 @@ evaluate-commands %sh{
   kcr init kakoune
 }
 
-hook global WinCreate .* %{ kakboard-enable }
-
 # gdb
 set-option global gdb_location_symbol "->"
 
@@ -78,9 +76,9 @@ hook global GlobalSetOption gdb_started=false %{
 # Mappings
 
 # Setup vertical selection mappings
-map -docstring "select pattern down" global user v :select-down<ret>
-map -docstring "select pattern up" global user <a-v> :select-up<ret>
-map -docstring "select both directions" global user V :select-vertically<ret>
+map -docstring "select pattern down" global user v :vertical-selection-down<ret>
+map -docstring "select pattern up" global user <a-v> :vertical-selection-up<ret>
+map -docstring "select both directions" global user V :vertical-selection-up-and-down<ret>
 
 map -docstring "Send selection to repl window" global user s <esc>:send-text<ret>
 map -docstring "Load your kakrc" global user R <esc>:source<space>~/.config/kak/kakrc<ret>

@@ -100,7 +100,7 @@ in {
     packages = with pkgs; [
       # coding
       (kakoune.override {
-        plugins = with pkgs.kakounePlugins; [ kakboard ];
+        plugins = with pkgs.kakounePlugins; [ kakoune-vertical-selection ];
       })
       kak-lsp kakoune-cr
       xclip # needed for kakoune clipboard support
