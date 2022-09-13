@@ -26,7 +26,6 @@ in {
   boot = {
     kernelParams =
       [ "acpi_rev_override" "mem_sleep_default=deep" "intel_iommu=igfx_off" "nvidia-drm.modeset=1" ];
-    kernelPackages = pkgs.linuxPackages_5_4;
     extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
 
