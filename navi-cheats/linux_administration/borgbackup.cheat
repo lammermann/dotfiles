@@ -1,0 +1,21 @@
+% borg backup
+
+# List all backups
+borg list --progress <backup_repo>
+
+# Show diff between two archives
+borg diff --progress \
+  <backup_repo>::<archive1> <archive2> \
+  | kak
+
+# cleanup backups
+borg compact --progress <backup_repo>
+
+# explore backup on fuse file system
+borg mount \
+  <backup_repo> <mount_point>
+
+# show information about a backup
+borg info <backup_repo>::<archive>
+
+$ backup_repo: fd location ${HOME}/.config/borg/security/ -x cat '{}'

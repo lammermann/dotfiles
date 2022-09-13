@@ -6,5 +6,23 @@ find -L . -name . -o -type d -prune -o -type l -exec rm {} +
 # Folder size
 du -sh
 
+# Disc usage analysis / Folder size analysis
+ncdu /
+
+# Find all files and directories which match a pattern
+fd <pattern>
+
+# Find all files and directories which match a pattern in a given directory
+fd <pattern> <start_directory>
+
+# Find all files with a given extension in the current directory
+fd -e <file_extension>
+
+# Find all files that match a pattern and open them in kakoune
+fd <pattern> -X kak
+
+# Find all files that match a pattern and run a command on each of them
+fd <pattern> -x <cmd>
+
 # Resize pngs to 128x128
 \ls ./*[^(_128)].png | sed 's/.png//' | xargs -I% convert "%.png" -resize 128x128 "%_128.png"

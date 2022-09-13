@@ -1,0 +1,24 @@
+% docker podman container
+
+# run a container
+podman run --rm -it <image> <command>
+
+# run a container from an archive
+podman run --rm -it docker-archive:<path> <command>
+
+# run a container from an archive and mount local folder
+podman run --rm \
+  -it docker-archive:<path> \
+  --mount=type=bind,source=<host_folder>,target=<folder_inside_container> \
+  <command>
+
+# run a container and map a port
+podman run --rm -it <image> \
+  -p <local_port>:<port_in_container> \
+  <command>
+
+# build a container from local Dockerfile with podman/buildah
+podman build . -t <name>
+
+# get container metadata as json
+podman inspect <image_or_name>

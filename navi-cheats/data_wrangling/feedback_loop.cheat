@@ -1,0 +1,4 @@
+% feedback update
+
+# rerun command on file changes
+watchexec <command>
