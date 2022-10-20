@@ -1,4 +1,18 @@
 % feedback update
 
 # rerun command on file changes
-watchexec <command>
+watchexec -c -- <command>
+
+# rerun command when files with extension change
+watchexec -c -e <extensions> -- <command>
+
+# rerun command when files that match a pattern change
+watchexec -c -f <pattern> -- <command>
+
+# rerun command on file changes but ignore files that match a pattern
+watchexec -c -i <pattern> -- <command>
+
+# rerun command when files in a given directory change
+watchexec -c -w <directory> -- <command>
+
+$ directory: fd --strip-cwd-prefix -t d
