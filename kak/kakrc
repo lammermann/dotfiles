@@ -2,7 +2,7 @@
 # Options
 
 # use a better colorscheme
-colorscheme github
+colorscheme zenburn
 
 set global tabstop 2
 set global indentwidth 2
