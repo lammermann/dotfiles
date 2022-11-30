@@ -1,5 +1,0 @@
-[Unit]
-Description=full system backup
-
-[Service]
-ExecStart=%h/bin/backup.sh
