@@ -100,7 +100,10 @@ in {
     packages = with pkgs; [
       # coding
       (kakoune.override {
-        plugins = with pkgs.kakounePlugins; [ kakoune-vertical-selection ];
+        plugins = with pkgs.kakounePlugins; [
+          kakoune-vertical-selection
+          kak-ansi
+        ];
       })
       kak-lsp kakoune-cr
       xclip # needed for kakoune clipboard support
@@ -118,12 +121,12 @@ in {
       libreoffice hunspellDicts.de_DE
 
       # system tools
-      alacritty
+      alacritty kitty
       fd
       mynerdfonts
       feh xorg.xev xcwd python python3
       i3-layout-manager rofi fzf
-      w3m htop tmux p7zip xarchiver ripgrep bat
+      w3m htop p7zip xarchiver ripgrep bat
       borgbackup
       keepassxc
 
@@ -161,6 +164,5 @@ in {
       anki
       pkgsUnstable.tuhi
     ];
-
   };
 }

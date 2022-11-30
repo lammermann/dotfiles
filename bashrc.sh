@@ -8,12 +8,13 @@
 # }}}
 #===============================================================================
 # Aliases {{{
-alias ls='ls --color=auto'
+alias ls='ls --hyperlink=auto --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
 alias du='du -h'
 alias ftp='ncftp'
 alias vim='nvim'
+alias icat='kitty +kitten icat'
 # }}}
 #===============================================================================
 # Variables {{{
@@ -36,10 +37,6 @@ export PATH="$PATH:$HOME/.cargo/bin"
 # }}}
 #===============================================================================
 # Commands {{{
-# completion
-if [ -f /etc/bash_completion ]; then
-   . /etc/bash_completion
-fi
 # unmap ctrl-s for mapping it in vim
 stty stop undef
 # }}}

@@ -25,6 +25,11 @@ set global grepcmd 'rg --column'
 
 alias global qa kill
 
+# use i3 instead of kitty for window management
+hook global ModuleLoaded kitty %{
+  set global kitty_window_type 'os-window'
+}
+
 ################################################################################
 # load plugins
 
