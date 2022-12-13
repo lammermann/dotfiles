@@ -26,3 +26,16 @@ fd <pattern> -x <cmd>
 
 # Resize pngs to 128x128
 \ls ./*[^(_128)].png | sed 's/.png//' | xargs -I% convert "%.png" -resize 128x128 "%_128.png"
+
+% grep
+
+# Find all lines matching a pattern in files
+rg <pattern>
+
+# Find all lines matching a pattern in files but exclude some subdirectory from search
+rg -g '!<subdir>' <pattern>
+
+# Find all files which have lines that match a pattern
+rg -l <pattern>
+
+$ subdir: fd -t d --strip-cwd-prefix
