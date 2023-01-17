@@ -8,7 +8,6 @@ let
     i3ipc
   ];
   python3 = pkgs.python38.withPackages python-environment;
-  mynerdfonts = pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; };
 
 in {
   # Let Home Manager install and manage itself.
@@ -123,7 +122,7 @@ in {
       # system tools
       alacritty kitty
       fd
-      mynerdfonts
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
       feh xorg.xev xcwd python python3
       i3-layout-manager rofi fzf
       w3m htop p7zip xarchiver ripgrep bat
