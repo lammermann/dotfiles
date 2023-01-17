@@ -8,6 +8,17 @@ let
     i3ipc
   ];
   python3 = pkgs.python38.withPackages python-environment;
+  keepassxc-prompt = pkgs.writeShellScriptBin "keepassxc-prompt" ''
+  # see https://peterbabic.dev/blog/make-ssh-prompt-password-keepassxc/
+  until ssh-add -l &> /dev/null
+  do
+    echo "Waiting for agent. Please unlock the database."
+    ${pkgs.keepassxc}/bin/keepassxc & &> /dev/null
+    sleep 1
+  done
+
+  ${pkgs.netcat}/bin/nc "$1" "$2"
+  '';
 
 in {
   # Let Home Manager install and manage itself.
@@ -66,6 +77,13 @@ in {
           ff = "only";
         };
       };
+    };
+
+    ssh = {
+      enable = true;
+      extraConfig = ''
+      ProxyCommand ${keepassxc-prompt}/bin/keepassxc-prompt %h %p
+      '';
     };
 
     obs-studio = {
@@ -128,6 +146,7 @@ in {
       w3m htop p7zip xarchiver ripgrep bat
       borgbackup
       keepassxc
+      keepassxc-prompt
 
       # documentation and analysis
       asciidoctor-with-extensions
