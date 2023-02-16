@@ -119,7 +119,7 @@ in {
       (kakoune.override {
         plugins = with pkgs.kakounePlugins; [
           kakoune-vertical-selection
-          kak-ansi
+          kak-ansi # improves usage as a pager
         ];
       })
       kak-lsp kakoune-cr
