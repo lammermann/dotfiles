@@ -139,6 +139,7 @@ in {
 
       # system tools
       alacritty kitty
+      ranger
       fd
       (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
       feh xorg.xev xcwd python python3
