@@ -144,6 +144,8 @@ in {
 
   };
 
+  services.arbtt.enable = true;
+
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
   users.extraGroups.vboxusers.members = [ "benjamin" ];
@@ -156,6 +158,7 @@ in {
     wget vim git
     xfce.thunar-volman
     nvidia-offload
+    haskellPackages.arbtt
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
