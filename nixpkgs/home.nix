@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 
 let
-
   sources = import ./nix/sources.nix;
   pkgsUnstable = import sources.nixpkgs {};
+  pkgs = import sources.nixpkgs-stable {};
   python-environment = python-packages: with python-packages; [
     i3ipc
   ];
