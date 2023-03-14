@@ -1,0 +1,10 @@
+% direnv, nix, nixos, lorri
+
+# list all direnv projects
+; doesn't seem to be set on my system, but correct base would be $XDG_DATA_HOME
+fd . ~/.local/share/direnv/allow/ -x cat | sort
+
+# list all lorri projects
+;ls ~/.cache/lorri/gc_roots/
+fd nix_file ~/.cache/lorri/gc_roots/ -tl -x readlink
+
