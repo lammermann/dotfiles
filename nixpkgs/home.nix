@@ -181,7 +181,7 @@ in {
 
       # other personal stuff
       anki
-      pkgsUnstable.tuhi
+      tuhi
     ];
   };
 }
