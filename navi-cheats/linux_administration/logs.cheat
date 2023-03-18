@@ -1,0 +1,13 @@
+% log
+
+# print kernel messages
+dmesg
+
+# show messages since the last boot
+journalctl -b
+
+# show log messages and automatically update when new messages come
+journalctl --follow
+
+# Show messages from a running, local container
+journalctl --machine=<machine>

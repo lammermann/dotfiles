@@ -1,7 +1,0 @@
-
-# Pass values as command parameters (use after pipe)
-<command> $in
-
-# Set environment variable for current session
-let-env <name> = <value>
-
