@@ -6,18 +6,12 @@
 
 let
   sources = import ./nix/sources.nix;
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
 in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       (sources.nixos-hardware + "/system76")
+      (sources.nixos-hardware + "/common/gpu/nvidia/disable.nix")
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -25,28 +19,13 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot = {
     kernelParams =
-      [ "acpi_rev_override" "mem_sleep_default=deep" "intel_iommu=igfx_off" "nvidia-drm.modeset=1" ];
-    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+      [ "acpi_rev_override" "mem_sleep_default=deep" "intel_iommu=igfx_off" ];
   };
 
   specialisation = {
     external-display.configuration = {
       system.nixos.tags = [ "external-display" ];
-      hardware.nvidia.prime.offload.enable = lib.mkForce false;
-      hardware.nvidia.powerManagement.enable = lib.mkForce false;
     };
-  };
-  hardware.nvidia.prime = {
-    # Sync Mode
-    sync.enable = true;
-    # Offload Mode
-    #offload.enable = true;
-
-    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-    nvidiaBusId = "PCI:1:0:0";
-
-    # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-    intelBusId = "PCI:0:2:0";
   };
 
   networking.hostName = "benjamin"; # Define your hostname.
@@ -63,38 +42,8 @@ in {
   networking.interfaces.enp5s0f1.useDHCP = true;
   networking.interfaces.wlp0s20f3.useDHCP = true;
 
-  hardware.nvidia.modesetting.enable = true;
   services.xserver = {
     enable = true;
-
-    videoDrivers = [ "nvidia" ];
-
-    screenSection = ''
-      Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-      Option         "AllowIndirectGLXProtocol" "off"
-      Option         "TripleBuffer" "on"
-    '';
-
-    config = ''
-      Section "Device"
-          Identifier  "Intel Graphics"
-          Driver      "intel"
-          #Option      "AccelMethod"  "sna" # default
-          #Option      "AccelMethod"  "uxa" # fallback
-          Option      "TearFree"        "true"
-          Option      "SwapbuffersWait" "true"
-          BusID       "PCI:0:2:0"
-          #Option      "DRI" "2"             # DRI3 is now default
-      EndSection
-
-      Section "Device"
-          Identifier "nvidia"
-          Driver "nvidia"
-          BusID "PCI:1:0:0"
-          Option "AllowEmptyInitialConfiguration"
-      EndSection
-    '';
-
     desktopManager = {
       xterm.enable = false;
       xfce = {
@@ -157,7 +106,6 @@ in {
   environment.systemPackages = with pkgs; [
     wget vim git
     xfce.thunar-volman
-    nvidia-offload
     haskellPackages.arbtt
   ];
 
