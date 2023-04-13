@@ -149,6 +149,9 @@ in {
       keepassxc
       keepassxc-prompt
 
+      gnome.pomodoro
+      ktimetracker
+
       # documentation and analysis
       asciidoctor-with-extensions
       graphviz
