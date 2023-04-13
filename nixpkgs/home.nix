@@ -70,7 +70,7 @@ in {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
       delta.enable = true;
-      userEmail = "kober@optisense.com";
+      userEmail = "benko@kober-systems.com";
       userName = "Benjamin Kober";
       extraConfig = {
         pull = {
