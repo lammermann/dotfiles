@@ -97,6 +97,8 @@ map global user r -docstring 'replace from clipboard' '|xclip -i -selection clip
 # Window and View manipualtion
 map global normal <c-w> V
 map -docstring "open new window" global view n <esc>:new<ret>
+map -docstring "open new window in vertical split" global view v "<esc>:kitty-split-vertical kak -c %val{session}<ret>"
+map -docstring "open new window in horizontal split" global view s "<esc>:kitty-split-horizontal kak -c %val{session}<ret>"
 map -docstring "close current window" global view c <esc>:quit<ret>
 
 # Goto bindings
