@@ -22,12 +22,6 @@ in {
       [ "acpi_rev_override" "mem_sleep_default=deep" "intel_iommu=igfx_off" ];
   };
 
-  specialisation = {
-    external-display.configuration = {
-      system.nixos.tags = [ "external-display" ];
-    };
-  };
-
   networking.hostName = "benjamin"; # Define your hostname.
   networking.networkmanager.enable = true;
   networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
