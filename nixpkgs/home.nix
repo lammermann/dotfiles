@@ -135,7 +135,8 @@ in {
 
       # tools needed for coding at work and office
       vscodium
-      libreoffice hunspellDicts.de_DE
+      libreoffice hunspellDicts.de_DE hunspellDicts.en_US
+      hunspell proselint
 
       # system tools
       alacritty kitty

@@ -196,6 +196,5 @@ hook global WinSetOption filetype=rust %{
 }
 
 hook global WinSetOption filetype=(asciidoc|markdown) %{
-  add-highlighter window/ wrap -word -width 78
-  set window autowrap_column 80
+  set-option window lintcmd "proselint"
 }
