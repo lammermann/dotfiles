@@ -15,3 +15,4 @@
 *.bin
 Thumbs.db
 .tags
+target
