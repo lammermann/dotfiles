@@ -196,7 +196,16 @@ hook global BufSetOption filetype=xml %{
 }
 
 hook global WinSetOption filetype=rust %{
+  set buffer lsp_auto_highlight_references true
+
   hook window BufWritePre .* lsp-formatting-sync
+
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
 }
 
 hook global WinSetOption filetype=(asciidoc|markdown) %{
