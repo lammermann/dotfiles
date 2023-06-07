@@ -14,6 +14,7 @@ Usage:
 ./make.sh build
 ./make.sh switch
 ./make.sh update
+./make.sh upgrade <version>
 ./make.sh info
 ./make.sh cleanup
 ./make.sh help
@@ -62,6 +63,16 @@ case "$mode" in
   "update")
     cd nixpkgs/ && nix-shell --run "niv update"
     cd .. && "$0" build
+    ;;
+  "upgrade")
+    version="$1"
+    shift
+    echo "updating to version ${version}"
+
+    cd nixpkgs/
+    nix-shell --run "niv update nixpkgs-stable -b ${version}"
+    nix-shell --run "niv update home-manager -b ${version}"
+    cd .. && "$0" update
     ;;
   "info")
     drv="$(realpath /var/run/current-system)"
