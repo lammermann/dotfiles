@@ -7,7 +7,7 @@ let
   python-environment = python-packages: with python-packages; [
     i3ipc
   ];
-  python3 = pkgs.python38.withPackages python-environment;
+  python3 = pkgs.python311.withPackages python-environment;
   keepassxc-prompt = pkgs.writeShellScriptBin "keepassxc-prompt" ''
   # see https://peterbabic.dev/blog/make-ssh-prompt-password-keepassxc/
   until ssh-add -l &> /dev/null
@@ -128,7 +128,7 @@ in {
       jq jless
       watchexec entr
       # language servers
-      python-language-server nodePackages.bash-language-server
+      python311Packages.python-lsp-server nodePackages.bash-language-server
       nodePackages.typescript-language-server rust-analyzer
       # vcs
       pkgsUnstable.pijul
@@ -143,7 +143,7 @@ in {
       ranger
       fd
       (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-      feh xorg.xev xcwd python python3
+      feh xorg.xev xcwd python3
       i3-layout-manager rofi fzf
       w3m htop p7zip xarchiver ripgrep bat
       borgbackup

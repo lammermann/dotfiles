@@ -50,7 +50,7 @@ args = ["--stdio"]
 [language.python]
 filetypes = ["python"]
 roots = ["requirements.txt", "setup.py", ".git", ".hg"]
-command = "python-language-server"
+command = "pylsp"
 
 [language.c_cpp]
 filetypes = ["c", "cpp"]
