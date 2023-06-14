@@ -52,6 +52,8 @@ in {
 
   # Configure keymap in X11
   services.xserver.layout = "de,us";
+  services.xserver.xkbVariant = "nodeadkeys,";
+  console.useXkbConfig = true;
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable touchpad support (enabled default in most desktopManager).
