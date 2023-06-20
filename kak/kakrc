@@ -84,6 +84,10 @@ hook global GlobalSetOption gdb_started=false %{
 ################################################################################
 # Mappings
 
+# X extends lines
+map -docstring 'extend lines downwards' global normal X %{<a-:>F<ret>x}
+map -docstring 'extend lines upwards' global normal <a-X> %{<a-:><a-;><a-H>Kx}
+
 # Setup vertical selection mappings
 map -docstring "select pattern down" global user v :vertical-selection-down<ret>
 map -docstring "select pattern up" global user <a-v> :vertical-selection-up<ret>
