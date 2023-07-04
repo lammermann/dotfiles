@@ -91,8 +91,17 @@ in {
 
   services.arbtt.enable = true;
 
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
+
+    virtualbox.host = {
+      enable = true;
+      enableExtensionPack = true;
+    };
+  };
   users.extraGroups.vboxusers.members = [ "benjamin" ];
 
   nixpkgs.config.allowUnfree = true;
