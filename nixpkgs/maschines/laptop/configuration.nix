@@ -124,11 +124,14 @@ in {
   programs.ssh.startAgent = true;
 
   # Add some udev rules for development
-  services.udev.extraRules = ''
-    # set permissions for optisense hid devices
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0c90", GROUP="users", MODE="0664"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0c91", GROUP="users", MODE="0664"
-  '';
+  services.udev = {
+    extraRules = ''
+      # set permissions for optisense hid devices
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0c90", GROUP="users", MODE="0664"
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0c91", GROUP="users", MODE="0664"
+    '';
+    packages = [ pkgs.teensy-udev-rules ];
+  };
 
   # List services that you want to enable:
 
