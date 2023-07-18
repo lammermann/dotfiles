@@ -11,6 +11,12 @@ filetypes = ["rust"]
 roots = ["Cargo.toml"]
 command = "rust-analyzer"
 
+[language.lua]
+filetypes = ["lua"]
+roots = [".git", ".luaurc"]
+command = "luau-lsp"
+args = ["lsp", "--devs:luau-lsp.require.mode:relativeToWorkspaceRoot"]
+
 [language.javascript]
 filetypes = ["javascript"]
 roots = ["package.json"]

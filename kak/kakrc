@@ -53,7 +53,9 @@ evaluate-commands %sh{
 
 # Enable language server
 eval %sh{kak-lsp --kakoune -s $kak_session}
-lsp-enable
+hook global WinSetOption filetype=(rust|python|lua|c|cpp) %{
+  lsp-enable-window
+}
 
 set global lsp_insert_spaces true
 
@@ -189,6 +191,10 @@ hook global WinSetOption filetype=python %{
   set buffer lsp_insert_spaces false
   set buffer lsp_tab_size 4
   hook window BufWritePre .* lsp-formatting-sync
+}
+
+hook global BufCreate '.*[.](luau)' %{
+  set-option buffer filetype lua
 }
 
 hook global BufSetOption filetype=json %{
