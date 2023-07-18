@@ -54,10 +54,8 @@ command = "pylsp"
 
 [language.c_cpp]
 filetypes = ["c", "cpp"]
-roots = ["compile_commands.json", ".cquery"]
-command = "cquery"
-# Vielleicht kann ich was mit extraClangArguments machen
-args = ["--init={\"cacheDirectory\":\"/tmp/cquery\"}"]
+roots = ["compile_commands.json", ".clangd", ".git", ".hg"]
+command = "clangd"
 
 [language.haskell]
 filetypes = ["haskell"]
