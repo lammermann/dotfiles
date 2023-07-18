@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "44bc025007e5fcc10dbc3d9f96dcbf06fc0e8c1c",
+        "rev": "d4ea64f2063820120c05f6ba93ee02e6d4671d6b",
         "sha256": "13xg2dbw4cwskx27nsmx2s7xf9nq89vjp3sjlfpm05fnja8x9q5w",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixos-hardware/archive/44bc025007e5fcc10dbc3d9f96dcbf06fc0e8c1c.tar.gz",
+        "url": "https://github.com/NixOS/nixos-hardware/archive/d4ea64f2063820120c05f6ba93ee02e6d4671d6b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -41,10 +41,10 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a187ec43efbeec0f3be6f9d13a6836fcbb914a9d",
-        "sha256": "17cmrsp7jxnycwb0x9kkbgp4r76grrv4m79vycriw7kyrlp4hz5k",
+        "rev": "d0f2758381caca8b4fb4a6cac61721cc9de06bd9",
+        "sha256": "108j3j63l2qa61kan29j98q1gxcj8ki97gfk2x6awgshz54shjjq",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/a187ec43efbeec0f3be6f9d13a6836fcbb914a9d.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/d0f2758381caca8b4fb4a6cac61721cc9de06bd9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-stable": {
@@ -53,10 +53,10 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0b8bcd5374deb366516a358b544518cf4f9d916e",
-        "sha256": "1j1agxa528ksxlf3miyp17pagpsbrxq249fgk3n3fk2fqzkyb4bq",
+        "rev": "319ff59e1db9a19cdc4a1fc19893784ff7618c5b",
+        "sha256": "1vnghpqi3j1rcp8x0xj7vdcppf3qa8ii82wir02mhxp3ss1n1zlh",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/0b8bcd5374deb366516a358b544518cf4f9d916e.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/319ff59e1db9a19cdc4a1fc19893784ff7618c5b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
