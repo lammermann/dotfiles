@@ -67,9 +67,15 @@ in {
   };
   services.kanata = {
     enable = true;
-    keyboards.internal = {
-      config = builtins.readFile ./us_internal_keyboard.kbd;
-      devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
+    keyboards = {
+      internal = {
+        config = builtins.readFile ./us_internal_keyboard.kbd;
+        devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
+      };
+      dell_de_usb = {
+        config = builtins.readFile ./dell_de_usb_keyboard.kbd;
+        devices = [ "/dev/input/by-id/usb-Dell_Dell_USB_Keyboard-event-kbd" ];
+      };
     };
   };
 
