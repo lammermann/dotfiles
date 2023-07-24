@@ -51,10 +51,20 @@ in {
   };
 
   # Configure keymap in X11
-  services.xserver.layout = "de,us";
-  services.xserver.xkbVariant = "nodeadkeys,";
   console.useXkbConfig = true;
-  # services.xserver.xkbOptions = "eurosign:e";
+  services.xserver = {
+    layout = "de+poly";
+    extraLayouts = {
+      poly = {
+        description = "custom german bulgarian coding xkb layout.";
+        languages = [ "eng" "deu" "bul" ];
+        keycodesFile = ./polyglot_keycodes.xkb;
+        symbolsFile = ./polyglot_symbols.xkb;
+        compatFile = ./polyglot_compat.xkb;
+        typesFile = ./polyglot_types.xkb;
+      };
+    };
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
