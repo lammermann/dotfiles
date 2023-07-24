@@ -42,17 +42,17 @@
 ;; There are currently a maximum of 25 layers allowed.
 (deflayer qwerty
   @grl 1    2    3    4    5    6    7    8    9    0    -     =   bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [     ]   \
+  tab  q    w    e    r    t    z    u    i    o    p    [     ]   \
   XX   a    s    d    f    g    h    j    k    l    ;    '     ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lsft y    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rmet rctl
 )
 
 (deflayer bulgarian
   @grl _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    AG-q AG-w AG-e AG-r AG-t AG-y AG-u AG-i AG-o AG-p AG-[ AG-] _
+  _    AG-ä AG-w AG-e AG-r AG-t AG-z AG-u AG-i AG-o AG-p AG-[ AG-] _
   XX   AG-a AG-s AG-d AG-f AG-g AG-h AG-j AG-k AG-l AG-ö AG-ä ret
-  lsft AG-z AG-x AG-c AG-v AG-b AG-n AG-m AG-, AG-. AG-/ _
+  lsft AG-y AG-x AG-c AG-v AG-b AG-n AG-m AG-, AG-. AG-/ _
   lctl lmet lalt           spc            ralt rmet rctl
 )
 
