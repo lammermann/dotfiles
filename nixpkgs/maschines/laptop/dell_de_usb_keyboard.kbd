@@ -35,16 +35,16 @@
 )
 
 ;; The first layer defined is the layer that will be active by default
-;; when kanata starts up. This layer is mostly the standard QWERTY
+;; when kanata starts up. This layer is mostly the standard german QWERTZ
 ;; layout except for the backtick/grave key (@grl) which is an alias for
 ;; a tap-hold key.
 ;;
 ;; There are currently a maximum of 25 layers allowed.
-(deflayer qwerty
-  @grl 1    2    3    4    5    6    7    8    9    0    -     =   bspc
-  tab  q    w    e    r    t    z    u    i    o    p    [     ]   \
-  XX   a    s    d    f    g    h    j    k    l    ;    '     ret
-  lsft y    x    c    v    b    n    m    ,    .    /    rsft
+(deflayer qwertz
+  @grl 1    2    3    4    5    6    7    8    9    0    ß     =   bspc
+  tab  q    w    e    r    t    z    u    i    o    p    ü     +   #
+  XX   a    s    d    f    g    h    j    k    l    ö    ä     ret
+  lsft y    x    c    v    b    n    m    ,    .    -    rsft
   lctl lmet lalt           spc            ralt rmet rctl
 )
 
@@ -66,7 +66,7 @@
   grl (tap-hold 200 200 grv (layer-toggle layers))
 
   ;; layer-switch changes the base layer.
-  qwr (layer-switch qwerty)
+  qwr (layer-switch qwertz)
   bul (layer-switch bulgarian)
 
   ;; tap for capslk, hold for lctl
@@ -77,7 +77,7 @@
 ;; except for defcfg. I.e. in Linux, you cannot live reload and switch keyboard
 ;; devices for the time being.
 ;;
-;; The keys 1 and 2 switch the base layer to qwerty and bulgarian respectively.
+;; The keys 1 and 2 switch the base layer to qwertz and bulgarian respectively.
 ;;
 ;; Apart from the layer switching and live reload, all other keys are the
 ;; underscore _ which means "transparent". Transparent means the base layer
