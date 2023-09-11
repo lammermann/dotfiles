@@ -125,7 +125,7 @@ map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>
 # lsp menu
 map global normal <c-l> ': enter-user-mode lsp<ret>'
 
-map global normal <c-t> '<esc>: connect terminal<ret>'
+map global normal <c-t> '<esc>: connect terminal elvish<ret>'
 
 # fuzzy finding
 try %{ declare-user-mode fzf } catch %{ echo -markup "{Error}Can't declare mode 'fzf' - already exists" }

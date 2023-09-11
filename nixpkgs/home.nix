@@ -126,6 +126,7 @@ in {
       xclip # needed for kakoune clipboard support
       html-tidy
       jq jless
+      elvish
       watchexec entr
       # language servers
       python311Packages.python-lsp-server nodePackages.bash-language-server
