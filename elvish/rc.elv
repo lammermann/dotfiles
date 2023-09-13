@@ -1,6 +1,4 @@
-eval (direnv hook elvish | slurp)
-eval (starship init elvish)
-
+# Configure environment variables
 set E:EDITOR = kak
 set E:VISUAL = kak
 
@@ -10,3 +8,7 @@ set edit:before-readline = [ $@edit:before-readline {
   set-title "elvish -> "(tilde-abbr $pwd)
 }]
 
+# Integrate external tools
+eval (direnv hook elvish | slurp)
+eval (starship init elvish)
+eval (navi widget elvish | slurp)
