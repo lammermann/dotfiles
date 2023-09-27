@@ -85,6 +85,12 @@ in {
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    # for a WiFi printer
+    openFirewall = true;
+  };
 
   # Enable sound.
   sound.enable = true;
