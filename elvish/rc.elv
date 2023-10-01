@@ -11,4 +11,5 @@ set edit:before-readline = [ $@edit:before-readline {
 # Integrate external tools
 eval (direnv hook elvish | slurp)
 eval (starship init elvish)
+eval (carapace _carapace | slurp)
 eval (navi widget elvish | slurp)

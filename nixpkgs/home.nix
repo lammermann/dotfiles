@@ -132,7 +132,7 @@ in {
       python311Packages.python-lsp-server nodePackages.bash-language-server
       nodePackages.typescript-language-server rust-analyzer
       # vcs
-      pkgsUnstable.pijul
+      pijul
 
       # tools needed for coding at work and office
       vscodium
@@ -143,6 +143,7 @@ in {
       alacritty kitty
       ranger
       fd
+      carapace
       (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
       feh xorg.xev xcwd python3
       i3-layout-manager rofi fzf
