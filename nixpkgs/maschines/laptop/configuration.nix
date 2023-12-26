@@ -82,6 +82,16 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
+  # Make sure the computer does not freeze under heavy load
+  # note: This is needed because with a nixos update it could happen
+  #       this tries to compile e.g. firefox eat up all memory and
+  #       freeze
+  # see:  https://superuser.com/questions/406101/is-it-possible-to-make-the-oom-killer-intervent-earlier
+  services.earlyoom = {
+    enable = true;
+    enableNotifications = true;
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
