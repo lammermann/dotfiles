@@ -13,12 +13,10 @@ map global insert <c-v> '<a-;>P'
 hook global InsertCompletionShow .* %{
     map window insert <tab>   '<c-n>'
     map window insert <s-tab> '<c-p>'
-    map window insert <esc>   '<c-o>'
 }
 hook global InsertCompletionHide .* %{
     unmap window insert <tab>   '<c-n>'
     unmap window insert <s-tab> '<c-p>'
-    unmap window insert <esc>   '<c-o>'
 }
 
 # undo, redo
