@@ -40,7 +40,7 @@ map global normal <c-down>    ']p;'
 #map global fixsel <(> ': surround<ret>(' -docstring 'surround with ()'
 #map global fixsel <{> ': surround<ret>{' -docstring 'surround with {}'
 
-map global insert <s-a>       '<a-;>%'
+map global insert <c-a>       '<a-;>%'
 map global insert <s-left>    '<a-;>H'
 map global insert <s-right>   '<a-;>L'
 map global insert <s-up>      '<a-;>K'
