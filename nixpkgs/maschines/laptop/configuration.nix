@@ -169,9 +169,13 @@ in {
       # set permissions for optisense hid devices
       SUBSYSTEM=="usb", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0c90", GROUP="users", MODE="0664"
       SUBSYSTEM=="usb", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0c91", GROUP="users", MODE="0664"
+      SUBSYSTEM=="usbmon", GROUP="wireshark", MODE="0640"
     '';
     packages = [ pkgs.teensy-udev-rules ];
   };
+
+  # allow wireshark to be used by unprivileged users
+  programs.wireshark.enable = true;
 
   # List services that you want to enable:
 
