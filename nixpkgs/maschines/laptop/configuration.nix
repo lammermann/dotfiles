@@ -50,6 +50,13 @@ in {
     displayManager.defaultSession = "xfce+i3";
   };
 
+  environment.xfce.excludePackages = with pkgs.xfce; [
+    parole
+    ristretto
+    mousepad
+    xfce4-terminal
+  ];
+
   # Configure keymap in X11
   console.useXkbConfig = true;
   services.xserver = {
