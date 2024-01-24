@@ -164,7 +164,7 @@ in {
       #pkgsUnstable.yed
 
       # web, mail and multimedia
-      firefox qutebrowser
+      firefox
       thunderbird
       vlc
 
