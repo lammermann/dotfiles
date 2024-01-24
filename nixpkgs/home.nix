@@ -183,7 +183,7 @@ in {
       niv
       nix-tree
 
-      pkgsUnstable.zoom-us
+      zoom-us
 
       # other personal stuff
       anki
