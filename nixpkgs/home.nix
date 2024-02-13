@@ -19,6 +19,9 @@ let
 
   ${pkgs.netcat}/bin/nc "$1" "$2"
   '';
+  diffviewer = pkgs.writeScriptBin "show-diff" (
+    builtins.replaceStrings ["difft"] ["${pkgs.difftastic}/bin/difft"]
+      (builtins.readFile ../bin/show-diff));
 
 in {
   # Let Home Manager install and manage itself.
@@ -69,12 +72,14 @@ in {
     git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
-      delta.enable = true;
       userEmail = "benko@kober-systems.com";
       userName = "Benjamin Kober";
       extraConfig = {
         pull = {
           ff = "only";
+        };
+        diff = {
+          external = "${diffviewer}/bin/show-diff";
         };
       };
     };
@@ -123,11 +128,12 @@ in {
         ];
       })
       kak-lsp kakoune-cr
-      xclip # needed for kakoune clipboard support
+      xsel # needed for kakoune clipboard support
       html-tidy
       jq jless
       elvish
       watchexec entr
+      mob
       # language servers
       python311Packages.python-lsp-server nodePackages.bash-language-server
       nodePackages.typescript-language-server rust-analyzer
@@ -149,6 +155,7 @@ in {
       i3-layout-manager rofi fzf
       w3m htop p7zip xarchiver ripgrep bat
       borgbackup
+      difftastic
       keepassxc
       keepassxc-prompt
 

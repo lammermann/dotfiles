@@ -1,0 +1,25 @@
+#!/usr/bin/env elvish
+#
+# wrapper script for git-diff. It selects the correct diff tool
+# for each file extension
+
+use path
+
+# diff is called by git with 7 parameters:
+# path old-file old-hex old-mode new-file new-hex new-mode
+var repo_path = $args[0]
+var oldfile = $args[1]
+var newfile = $args[4]
+
+var extension = (to-string (path:ext $repo_path))
+
+var image_extensions = [.jpg .jpeg .png]
+var is_image = (or (for x $image_extensions { eq $extension $x }))
+
+if $is_image {
+  echo $repo_path is an image
+  image_compare $oldfile $newfile
+} else {
+  difft --color auto --background light --display side-by-side $oldfile $newfile
+}
+
