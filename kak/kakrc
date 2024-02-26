@@ -104,6 +104,9 @@ map global user P -docstring 'paste (before) from clipboard' '<a-!>xclip -o -sel
 map global user y -docstring 'copy to clipboard' '<a-|>xclip -i -selection clipboard<ret>; :echo "copied selection to X11 clipboard"<ret>'
 map global user r -docstring 'replace from clipboard' '|xclip -i -selection clipboard<ret>; xclip -o -selection clipboard<ret>'
 
+# line numbers
+map -docstring "show line numbers" global user l ': add-highlighter window/ number-lines<ret>'
+
 # Window and View manipualtion
 map global normal <c-w> V
 map -docstring "open new window" global view n <esc>:new<ret>
