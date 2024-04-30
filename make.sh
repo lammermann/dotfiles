@@ -40,7 +40,7 @@ case "$mode" in
   "build")
     cd nixpkgs/
     export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix
-    trace nix-shell --keep NIXOS_CONFIG --run 'nixos-rebuild -I nixpkgs=$NIXPKGS build'
+    trace nix-shell --keep NIXOS_CONFIG --run 'nixos-rebuild -I nixpkgs=$NIXPKGS --show-trace build'
     drv="$(readlink ./result)"
 
     trace nix-shell --run "home-manager --show-trace build"
