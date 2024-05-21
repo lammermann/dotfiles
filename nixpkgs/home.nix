@@ -144,6 +144,7 @@ in {
       vscodium
       libreoffice hunspellDicts.de_DE hunspellDicts.en_US
       hunspell proselint
+      pkgsUnstable.kdePackages.okular
 
       # system tools
       alacritty kitty
