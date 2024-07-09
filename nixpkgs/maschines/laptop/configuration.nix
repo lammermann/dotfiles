@@ -47,8 +47,8 @@ in {
       };
     };
     windowManager.i3.enable = true;
-    displayManager.defaultSession = "xfce+i3";
   };
+  services.displayManager.defaultSession = "xfce+i3";
 
   environment.xfce.excludePackages = with pkgs.xfce; [
     parole
@@ -59,7 +59,7 @@ in {
 
   # Configure keymap in X11
   console.useXkbConfig = true;
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "de+poly";
     extraLayouts = {
       poly = {
@@ -87,7 +87,7 @@ in {
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Make sure the computer does not freeze under heavy load
   # note: This is needed because with a nixos update it could happen
@@ -104,7 +104,7 @@ in {
   services.printing.drivers = [ pkgs.brlaser ];
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     # for a WiFi printer
     openFirewall = true;
   };
