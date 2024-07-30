@@ -4,7 +4,7 @@
 # use a better colorscheme
 colorscheme zenburn
 # show matching symbols
-add-highlighter global/ show-matching
+add-highlighter -override global/ show-matching
 # always keep eight lines and three columns displayed around the cursor
 set-option global scrolloff 8,3
 
