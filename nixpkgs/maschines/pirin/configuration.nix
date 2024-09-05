@@ -51,12 +51,12 @@
   services.gitea = {
     enable = true;
     appName = "kober systems gitea";
-    #settings = {
-    #  server = {
-    #    DOMAIN = "git.pirin";
+    settings = {
+      server = {
+        DOMAIN = "pirin";
     #    PROTOCOL = "https";
-    #  };
-    #};
+      };
+    };
   };
   networking.firewall = {
     enable = true;
