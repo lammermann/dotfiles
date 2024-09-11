@@ -100,7 +100,6 @@ case "$mode" in
     fi
     ;;
   "cleanup")
-    trace home-manager expire-generations "-10 days"
     trace sudo nix-collect-garbage --delete-older-than 10d
     trace sudo nix-store --optimise
     ;;
