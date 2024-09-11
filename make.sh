@@ -51,8 +51,6 @@ case "$mode" in
   "switch")
     cd nixpkgs/
     export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix
-    trace sudo rm -f /etc/nixos || exit 1
-    trace sudo ln -s $(dirname $NIXOS_CONFIG) /etc/nixos
     trace nix-shell --keep NIXOS_CONFIG --run 'sudo nixos-rebuild -I nixpkgs=$NIXPKGS -I nixos-config=$NIXOS_CONFIG switch'
     ;;
   "update")
