@@ -28,7 +28,7 @@ in {
   networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
 
   # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+  time.timeZone = "Europe/Sofia";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
