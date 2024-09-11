@@ -12,6 +12,7 @@ in {
       ./hardware-configuration.nix
       (sources.nixos-hardware + "/system76")
       (sources.nixos-hardware + "/common/gpu/nvidia/disable.nix")
+      (sources.home-manager + "/nixos")
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -135,6 +136,7 @@ in {
     subGidRanges = [{ startGid = 100000; count = 65536; }];
 
   };
+  home-manager.users.benjamin = import ../../home.nix;
 
   services.arbtt.enable = true;
 
