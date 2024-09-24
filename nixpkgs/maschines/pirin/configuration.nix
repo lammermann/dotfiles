@@ -57,6 +57,14 @@
     #    PROTOCOL = "https";
       };
     };
+    extraConfig = ''
+      [markup.asciidoc]
+      ENABLED = true
+      FILE_EXTENSIONS = .adoc,.asciidoc
+      RENDER_COMMAND = "${pkgs.asciidoctor}/bin/asciidoctor -s -a showtitle --out-file=- -"
+      ; Input is not a standard input but a file
+      IS_INPUT_FILE = false
+    '';
   };
   networking.firewall = {
     enable = true;
