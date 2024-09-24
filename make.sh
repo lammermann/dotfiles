@@ -34,12 +34,13 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 mode="$1"
 shift
 
+export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix
+
 case "$mode" in
   # TODO add options for home-manager. maybe interactive asking
 
   "build")
     cd nixpkgs/
-    export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix
     trace nix-shell --keep NIXOS_CONFIG --run 'nixos-rebuild -I nixpkgs=$NIXPKGS -I nixos-config=$NIXOS_CONFIG --show-trace build'
     drv="$(readlink ./result)"
 
@@ -50,7 +51,6 @@ case "$mode" in
     ;;
   "switch")
     cd nixpkgs/
-    export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix
     trace nix-shell --keep NIXOS_CONFIG --run 'sudo nixos-rebuild -I nixpkgs=$NIXPKGS -I nixos-config=$NIXOS_CONFIG switch'
     ;;
   "update")
