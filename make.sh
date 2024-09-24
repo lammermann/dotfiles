@@ -38,8 +38,6 @@ export MACHINE=`hostname`
 export NIXOS_CONFIG="${HOME}/.config/nixpkgs/maschines/${MACHINE}/configuration.nix"
 
 case "$mode" in
-  # TODO add options for home-manager. maybe interactive asking
-
   "build")
     cd nixpkgs/
     trace nix-shell --keep NIXOS_CONFIG --run 'nixos-rebuild -I nixpkgs=$NIXPKGS -I nixos-config=$NIXOS_CONFIG --show-trace build'
