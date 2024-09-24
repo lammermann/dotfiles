@@ -34,7 +34,8 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 mode="$1"
 shift
 
-export NIXOS_CONFIG=${HOME}/.config/nixpkgs/maschines/laptop/configuration.nix
+export MACHINE=`hostname`
+export NIXOS_CONFIG="${HOME}/.config/nixpkgs/maschines/${MACHINE}/configuration.nix"
 
 case "$mode" in
   # TODO add options for home-manager. maybe interactive asking
