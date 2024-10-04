@@ -99,7 +99,7 @@ xkb_symbols "basic" {
     };
     key <AD11> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [      udiaeresis,      Udiaeresis,      Cyrillic_sha,    Cyrillic_SHA ]
+        symbols[Group1]= [      udiaeresis,      Udiaeresis,      Cyrillic_hardsign, Cyrillic_HARDSIGN ]
     };
     key <AD12> {
         type= "FOUR_LEVEL",
@@ -170,7 +170,7 @@ xkb_symbols "basic" {
     };
     key <AB03> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [               c,               C,      Cyrillic_hardsign, Cyrillic_HARDSIGN ]
+        symbols[Group1]= [               c,               C,      Cyrillic_sha,    Cyrillic_SHA ]
     };
     key <AB04> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
@@ -186,11 +186,11 @@ xkb_symbols "basic" {
     };
     key <AB07> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [               m,               M,              mu,       masculine ]
+        symbols[Group1]= [               m,               M,      Cyrillic_em,     Cyrillic_EM ]
     };
     key <AB08> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [           comma,       semicolon,      Cyrillic_em,     Cyrillic_EM ]
+        symbols[Group1]= [           comma,       semicolon,              mu,       masculine ]
     };
     key <AB09> {
         type= "FOUR_LEVEL",
