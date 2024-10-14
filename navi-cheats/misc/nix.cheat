@@ -9,12 +9,14 @@ nix-shell -p <pkgs>
 # start nix-shell without internet connection
 nix-shell <nixfile> --option substitute false
 
-# start nix-shell with unstable package
-nix-shell -I nixpkgs=https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz -p <pkgs>
+# start nix-shell with custom nixpkgs package
+nix-shell -I nixpkgs=<custom_nixpkgs> -p <pkgs>
 
 # build the deafult.nix in the current folder
 nix-build -E 'with import <nixpkgs> {} ; callPackage ./<nixfile> {}'
 
+# build the deafult.nix in the current folder with special nixpkgs
+nix-build -E 'with import <nixpkgs> {} ; callPackage ./<nixfile> {}' -I nixpkgs=<custom_nixpkgs>
 
 # Build a Nix expression
 nix-build --attr <expression_name>
@@ -46,3 +48,10 @@ nix-env -u
 # Attempt to find files with the appropriate endings, default to everything.
 $ nixfile: ls -a | grep -e "\(.nix$\)" ---
 $ nixpkgs: echo "<nixpkgs>"
+$ custom_nixpkgs: echo 'stable unstable system_stable system_unstable' | \
+    tr ' ' '\n' \
+    --- --map \
+    "sed 's@^stable$@https://github.com/nixos/nixpkgs-channels/archive/nixos-stable.tar.gz@;' | \
+    sed 's@^unstable$@https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz@;' | \
+    sed 's@^system_unstable$@$(jq .nixpkgs.url ~/.config/nixpkgs/nix/sources.json)@;' "
+
