@@ -13,7 +13,6 @@ cd `git rev-parse --show-toplevel`
 
 git subtree pull -P kak/plugins/kakoune-expand https://github.com/occivink/kakoune-expand.git master
 git subtree pull -P kak/plugins/kakoune-find https://github.com/occivink/kakoune-find.git master
-git subtree pull -P kak/plugins/kakoune-gdb https://github.com/occivink/kakoune-gdb.git master
 git subtree pull -P kak/plugins/kakoune-phantom-selection https://github.com/occivink/kakoune-phantom-selection.git master
 git subtree pull -P kak/plugins/kakoune-sudo-write https://github.com/occivink/kakoune-sudo-write.git master
 git subtree pull -P kak/plugins/kakoune-vertical-selection https://github.com/occivink/kakoune-vertical-selection.git master
