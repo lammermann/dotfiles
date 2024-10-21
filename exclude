@@ -15,4 +15,4 @@
 *.bin
 Thumbs.db
 .tags
-target
+**/target/**
