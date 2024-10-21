@@ -191,6 +191,11 @@ for_window [class="gtk-recordMyDesktop"] floating enable
 for_window [class="Gitk"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="com-yworks-A-yEd" title="win0"] floating enable
+for_window [class="OS_Manager"] floating enable
+for_window [class="image_compare"] floating enable
+# Bei Zoom sind leider alle Fenster gleich benannt
+# Deshalb machen wir alle Zoom Fenster Floating.
+for_window [class="zoom" title="^zoom$"] floating enable # WM_CLASS(STRING) = "zoom", "zoom" (Zoom Einstiegs Fenster)
 # Place Skype on extra workspace
 for_window [class="Skype"] move to workspace number 9, rename workspace 9 to "9: skype"
 
