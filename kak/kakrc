@@ -86,7 +86,7 @@ map global user y -docstring 'copy to clipboard' '<a-|>xclip -i -selection clipb
 map global user r -docstring 'replace from clipboard' '|xclip -i -selection clipboard<ret>; xclip -o -selection clipboard<ret>'
 
 # line numbers
-map -docstring "show line numbers" global user l ': add-highlighter window/ number-lines<ret>'
+map -docstring "show line numbers" global user l ': add-highlighter -override window/ number-lines<ret>'
 
 # Window and View manipualtion
 map global normal <c-w> V
