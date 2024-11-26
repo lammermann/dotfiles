@@ -106,6 +106,9 @@ handle_extension() {
             try lynx   -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
             try elinks -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
             ;; # fall back to highlight/cat if the text browsers fail
+       luau)
+            env COLORTERM=8bit bat --color=always --language=lua --style="${BAT_STYLE}" \
+                -- "${path}" && exit 5;;
     esac
 }
 
