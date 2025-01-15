@@ -172,6 +172,7 @@ in {
       #pkgsUnstable.yed
 
       # web, mail and multimedia
+      chromium
       firefox
       thunderbird
       vlc
