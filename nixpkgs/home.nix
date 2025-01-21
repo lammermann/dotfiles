@@ -160,7 +160,7 @@ in {
       keepassxc
       keepassxc-prompt
 
-      gnome.pomodoro
+      gnome-pomodoro
       ktimetracker
 
       # documentation and analysis
