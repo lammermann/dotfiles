@@ -117,6 +117,13 @@ in {
 
   fonts.fontconfig.enable = true;
 
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      mkhl.direnv
+    ];
+  };
+
   home = {
     # packages I need
     packages = with pkgs; [
@@ -141,7 +148,6 @@ in {
       pijul
 
       # tools needed for coding at work and office
-      vscodium
       libreoffice hunspellDicts.de_DE hunspellDicts.en_US
       hunspell proselint
       pkgsUnstable.kdePackages.okular
