@@ -6,6 +6,7 @@
 
 let
   sources = import ../../nix/sources.nix;
+  pkgs = import sources.nixpkgs-stable { config.allowUnfree = true; };
 in {
   imports =
     [ # Include the results of the hardware scan.
@@ -120,6 +121,7 @@ in {
 
   };
   home-manager.users.benjamin = import ../../home.nix;
+  home-manager.useGlobalPkgs = true;
 
   services.arbtt.enable = true;
 
