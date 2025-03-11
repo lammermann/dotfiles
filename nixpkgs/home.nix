@@ -190,15 +190,12 @@ in {
       wireshark # nmap-graphical # is rustscan a better alternative to nmap?
 
       # video and image editing
-      openshot-qt
       blender
-      gimp inkscape
+      inkscape
 
       # nix administration tools
       niv
       nix-tree
-
-      zoom-us
 
       # other personal stuff
       anki
