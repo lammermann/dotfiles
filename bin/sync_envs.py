@@ -42,20 +42,27 @@ def combine_lorri_and_direnv_projects(lorri_projects, direnv_projects):
         if base_path in lorri_project_paths:
             for lorri_project in lorri_projects:
                 if pathlib.Path(lorri_project["nix_file"]).parent == base_path:
+                    lorri_project["base_path"] = base_path
                     lorri_project["direnv"] = True
                     combined_projects.append(lorri_project)
         else:
             combined_project = {
                 "nix_file": direnv_project,
+                "base_path": base_path,
                 "direnv": True,
                 "shell_gc_root": None
             }
             combined_projects.append(combined_project)
     for lorri_project in lorri_projects:
         if "direnv" not in lorri_project:
+            lorri_project["base_path"] = pathlib.Path(lorri_project["nix_file"]).parent
             lorri_project["direnv"] = False
             combined_projects.append(lorri_project)
     return combined_projects
+
+def is_git_root(path):
+    git_dir = pathlib.Path(path) / ".git"
+    return git_dir.is_dir()
 
 def find_obsolete(projects):
     for project in projects:
@@ -63,6 +70,7 @@ def find_obsolete(projects):
             project["shell_gc_root_exists"] = project["shell_gc_root"].exists()
         else:
             project["shell_gc_root_exists"] = False
+        project["has_git"] = is_git_root(project["base_path"])
     return projects
 
 def sync():
