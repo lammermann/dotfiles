@@ -73,6 +73,14 @@ def find_obsolete(projects):
         project["has_git"] = is_git_root(project["base_path"])
     return projects
 
+def is_git_repo_modified(path):
+    """Check if a git repository was modified"""
+    try:
+        output = subprocess.check_output(["git", "status", "--porcelain"], cwd=path)
+        return output!= b""
+    except subprocess.CalledProcessError:
+        return False
+
 def sync():
     """Sync function to be implemented"""
     # TODO find the newest versions for the nix dependencies
@@ -82,6 +90,21 @@ def sync():
 
 def sync_all():
     """Sync all function to be implemented"""
+    direnv_projects = find_direnv_projects()
+    lorri_projects = find_lorri_projects()
+    combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
+    combined_projects = find_obsolete(combined_projects)
+
+    modified_projects = False
+    for project in sorted(combined_projects, key=lambda x: x['base_path']):
+        if project["has_git"]:
+            path = project["base_path"]
+            if is_git_repo_modified(path):
+                print(f"The repository at '{path}' has uncommitted changes")
+                modified_projects = True
+    if modified_projects:
+        print("Do you really want to continue?")
+
     # TODO find the newest versions for the nix dependencies
     #      of all projects and then
     #      update the nix/sources.json accordingly
