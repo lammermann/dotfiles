@@ -25,6 +25,7 @@ def find_lorri_projects():
             project_info = {}
             nix_file_link = gc_root / "gc_root" / "nix_file"
             shell_gc_root_link = gc_root / "gc_root" / "shell_gc_root"
+            project_info["lorri_cache_path"] = gc_root
             if nix_file_link.is_symlink():
                 project_info["nix_file"] = nix_file_link.resolve()
             if shell_gc_root_link.is_symlink():
