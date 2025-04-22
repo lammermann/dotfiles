@@ -56,30 +56,44 @@ def combine_lorri_and_direnv_projects(lorri_projects, direnv_projects):
             combined_projects.append(lorri_project)
     return combined_projects
 
+def find_obsolete(projects):
+    for project in projects:
+        if "shell_gc_root" in project:
+            project["shell_gc_root_exists"] = project["shell_gc_root"].exists()
+        else:
+            project["shell_gc_root_exists"] = False
+    return projects
+
 def sync():
     """Sync function to be implemented"""
+    # TODO find the newest versions for the nix dependencies
+    #      of the current project (current folder) and then
+    #      update the nix/sources.json accordingly
     print("Sync function called")
 
 def sync_all():
     """Sync all function to be implemented"""
+    # TODO find the newest versions for the nix dependencies
+    #      of all projects and then
+    #      update the nix/sources.json accordingly
     print("Sync all function called")
 
 def list_files():
     direnv_projects = find_direnv_projects()
     lorri_projects = find_lorri_projects()
     combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
+    combined_projects = find_obsolete(combined_projects)
 
     for project in sorted(combined_projects, key=lambda x: x['nix_file']):
         print(f"  - {project['nix_file']}")
         if "shell_gc_root" in project:
-            print(f"    - Shell GC Root: {project['shell_gc_root']}")
+            print(f"    - Shell GC Root: {project['shell_gc_root']}{' (Does not exist)' if not project['shell_gc_root_exists'] else ''}")
         print(f"    - Direnv: {'Enabled' if project['direnv'] else 'Disabled'}")
         print()
 
-
-
 def cleanup():
     """Cleanup function to be implemented"""
+    # TODO find all obsolete lorri and direnv roots and remove them
     print("Cleanup function called")
 
 def main():
