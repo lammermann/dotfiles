@@ -162,6 +162,7 @@ in {
       i3-layout-manager rofi fzf
       w3m htop p7zip xarchiver ripgrep bat
       borgbackup
+      ncdu
       difftastic
       keepassxc
       keepassxc-prompt
