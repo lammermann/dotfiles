@@ -2,6 +2,7 @@
 
 import sys
 import argparse
+import json
 import pathlib
 import subprocess
 
@@ -64,6 +65,47 @@ def is_git_root(path):
     git_dir = pathlib.Path(path) / ".git"
     return git_dir.is_dir()
 
+def read_json_file(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        print(f"File '{file_path}' not found")
+        return None
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}")
+        return None
+
+def search_string_in_git_file(file_path, search_string):
+    """Search a string in a git-managed file"""
+    try:
+        output = subprocess.check_output(["git", "grep", "-n", search_string, file_path])
+        output = output.decode("utf-8")
+        lines = output.splitlines()
+        if len(lines) > 1:
+            return "Error: Multiple lines found"
+        elif len(lines) == 0:
+            return "Error: String not found"
+        else:
+            line_number, line_content = lines[0].split(":", 1)
+            git_blame_output = subprocess.check_output(["git", "blame", "-p", file_path])
+            git_blame_output = git_blame_output.decode("utf-8")
+            git_blame_lines = git_blame_output.splitlines()
+            for git_blame_line in git_blame_lines:
+                if git_blame_line.startswith(f"{line_number} "):
+                    date_time = git_blame_line.split()[3]
+                    return date_time.replace(" ", "T")
+    except subprocess.CalledProcessError as e:
+        return f"Error: {e}"
+
+def add_timestamp_to_sources(path, input):
+    results = {}
+    for key, source in input.items():
+        source["timestamp"] = search_string_in_git_file(path, source["rev"])
+        results[key] = source
+    return results
+
 def find_obsolete(projects):
     for project in projects:
         if "shell_gc_root" in project:
@@ -71,6 +113,8 @@ def find_obsolete(projects):
         else:
             project["shell_gc_root_exists"] = False
         project["has_git"] = is_git_root(project["base_path"])
+        project["sources.json"] = read_json_file(project["base_path"] / "nix" / "sources.json")
+
     return projects
 
 def is_git_repo_modified(path):
