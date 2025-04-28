@@ -11,10 +11,10 @@ def main():
     parser = argparse.ArgumentParser(description="Script to manage files")
     subparsers = parser.add_subparsers(dest="command")
 
-    sync_parser = subparsers.add_parser("sync", help="Sync files")
-    sync_all_parser = subparsers.add_parser("sync_all", help="Sync all files")
+    sync_parser = subparsers.add_parser("sync", help="Sync current project")
+    sync_all_parser = subparsers.add_parser("sync_all", help="Sync all projects")
     list_parser = subparsers.add_parser("list", help="List files")
-    cleanup_parser = subparsers.add_parser("cleanup", help="Cleanup files")
+    cleanup_parser = subparsers.add_parser("cleanup", help="Cleanup obsolete project environments")
 
     if len(sys.argv) < 2:
         parser.print_help()
