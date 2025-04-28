@@ -79,25 +79,19 @@ def read_json_file(file_path):
 
 def search_string_in_git_file(file_path, search_string):
     """Search a string in a git-managed file"""
+    dir_in_git_repo = str(pathlib.Path(file_path).parent)
+    file_path = str(file_path)
     try:
-        output = subprocess.check_output(["git", "grep", "-n", search_string, file_path])
-        output = output.decode("utf-8")
-        lines = output.splitlines()
-        if len(lines) > 1:
-            return "Error: Multiple lines found"
-        elif len(lines) == 0:
-            return "Error: String not found"
-        else:
-            line_number, line_content = lines[0].split(":", 1)
-            git_blame_output = subprocess.check_output(["git", "blame", "-p", file_path])
-            git_blame_output = git_blame_output.decode("utf-8")
-            git_blame_lines = git_blame_output.splitlines()
-            for git_blame_line in git_blame_lines:
-                if git_blame_line.startswith(f"{line_number} "):
-                    date_time = git_blame_line.split()[3]
-                    return date_time.replace(" ", "T")
+        git_blame_output = subprocess.check_output(["git", "-C", dir_in_git_repo, "blame", "-c", file_path])
+        git_blame_output = git_blame_output.decode("utf-8")
+        git_blame_lines = git_blame_output.splitlines()
+        for git_blame_line in git_blame_lines:
+            if search_string in git_blame_line:
+                date_time = git_blame_line.split('\t')[2]
+                return date_time
     except subprocess.CalledProcessError as e:
         return f"Error: {e}"
+    return "Error: String not found"
 
 def add_timestamp_to_sources(path, input):
     results = {}
