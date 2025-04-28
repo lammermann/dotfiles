@@ -150,14 +150,14 @@ def is_git_repo_modified(path):
         return False
 
 def sync():
-    """Sync function to be implemented"""
+    """Sync the current project to use the newest sources."""
     # TODO find the newest versions for the nix dependencies
     #      of the current project (current folder) and then
     #      update the nix/sources.json accordingly
     print("Sync function called")
 
 def sync_all():
-    """Sync all function to be implemented"""
+    """Sync all projects to used the newest sources."""
     direnv_projects = find_direnv_projects()
     lorri_projects = find_lorri_projects()
     combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
