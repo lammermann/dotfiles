@@ -6,6 +6,36 @@ import json
 import pathlib
 import subprocess
 
+def main():
+    """Main function to handle command line arguments"""
+    parser = argparse.ArgumentParser(description="Script to manage files")
+    subparsers = parser.add_subparsers(dest="command")
+
+    sync_parser = subparsers.add_parser("sync", help="Sync files")
+    sync_all_parser = subparsers.add_parser("sync_all", help="Sync all files")
+    list_parser = subparsers.add_parser("list", help="List files")
+    cleanup_parser = subparsers.add_parser("cleanup", help="Cleanup files")
+
+    if len(sys.argv) < 2:
+        parser.print_help()
+        sys.exit(1)
+
+    args = parser.parse_args()
+
+    match args.command:
+        case "sync":
+            sync()
+        case "sync_all":
+            sync_all()
+        case "list":
+            list_files()
+        case "cleanup":
+            cleanup()
+        case _:
+            print("Invalid command")
+            parser.print_help()
+            sys.exit(1)
+
 def find_direnv_projects():
     home_dir = pathlib.Path.home()
     command = ["fd", ".", f"{home_dir}/.local/share/direnv/allow/", "-x", "cat"]
@@ -165,36 +195,6 @@ def cleanup():
     """Cleanup function to be implemented"""
     # TODO find all obsolete lorri and direnv roots and remove them
     print("Cleanup function called")
-
-def main():
-    """Main function to handle command line arguments"""
-    parser = argparse.ArgumentParser(description="Script to manage files")
-    subparsers = parser.add_subparsers(dest="command")
-
-    sync_parser = subparsers.add_parser("sync", help="Sync files")
-    sync_all_parser = subparsers.add_parser("sync_all", help="Sync all files")
-    list_parser = subparsers.add_parser("list", help="List files")
-    cleanup_parser = subparsers.add_parser("cleanup", help="Cleanup files")
-
-    if len(sys.argv) < 2:
-        parser.print_help()
-        sys.exit(1)
-
-    args = parser.parse_args()
-
-    match args.command:
-        case "sync":
-            sync()
-        case "sync_all":
-            sync_all()
-        case "list":
-            list_files()
-        case "cleanup":
-            cleanup()
-        case _:
-            print("Invalid command")
-            parser.print_help()
-            sys.exit(1)
 
 if __name__ == "__main__":
     main()
