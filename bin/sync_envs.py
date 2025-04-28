@@ -189,7 +189,10 @@ def list_files():
         if "shell_gc_root" in project:
             print(f"    - Shell GC Root: {project['shell_gc_root']}{' (Does not exist)' if not project['shell_gc_root_exists'] else ''}")
         print(f"    - Direnv: {'Enabled' if project['direnv'] else 'Disabled'}")
-        print()
+        if project["sources.json"] != None:
+            sources = add_timestamp_to_sources(project["base_path"] / "nix" / "sources.json", project["sources.json"])
+            for key, source in sources.items():
+                print(f'\t\t{key}: {source["timestamp"]}')
 
 def cleanup():
     """Cleanup function to be implemented"""
