@@ -157,7 +157,7 @@ in {
       ranger
       fd
       carapace
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+      nerd-fonts.fira-code nerd-fonts.droid-sans-mono
       feh xorg.xev xcwd python3
       i3-layout-manager rofi fzf
       w3m htop p7zip xarchiver ripgrep bat
