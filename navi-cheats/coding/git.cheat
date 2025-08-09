@@ -118,6 +118,12 @@ git submodule foreach git pull origin master
 # Update all submodules
 git submodule update --init --recursive
 
+# Add an external repo as a subfolder
+git subtree add --prefix <name_of_subfolder> <repo_url> master
+
+# Sync a subtree with the external origin
+git subtree pull --prefix <name_of_subfolder> <repo_url> master
+
 # Skip git hooks
 git commit --no-verify
 
