@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Test with:
+#     python -m doctest sync_envs.py
+
 import sys
 import argparse
 import json
@@ -37,6 +40,7 @@ def main():
             sys.exit(1)
 
 def find_direnv_projects():
+    """Find all projects with an active direnv environment."""
     home_dir = pathlib.Path.home()
     command = ["fd", ".", f"{home_dir}/.local/share/direnv/allow/", "-x", "cat"]
     try:
@@ -49,6 +53,7 @@ def find_direnv_projects():
         return []
 
 def find_lorri_projects():
+    """Find all projects with an active lorri setup."""
     lorri_cache_dir = pathlib.Path.home() / ".cache" / "lorri" / "gc_roots"
     lorri_projects = []
     for gc_root in lorri_cache_dir.iterdir():
@@ -66,6 +71,31 @@ def find_lorri_projects():
     return lorri_projects
 
 def combine_lorri_and_direnv_projects(lorri_projects, direnv_projects):
+    """Combine datasets of lorri and direnv projects into a single dataset.
+
+    Arguments:
+        lorri_projects:  A list of dicts with information about a lorri project
+        direnv_projects: A list of paths to a direnv .envrc file
+
+    Usage Examples:
+        >>> lorri = [{
+        ...     'lorri_cache_path': '/home/user/.cache/lorri/gc_roots/somehash',
+        ...     'nix_file': '/home/user/path/to/project/shell.nix',
+        ...     'shell_gc_root': '/nix/store/someotherhash-lorri-keep-env-hack-nix-shell',
+        ... }]
+        >>> direnv = [
+        ...     '/home/user/path/to/project/.envrc'
+        ... ]
+        >>> result = combine_lorri_and_direnv_projects(lorri, direnv)
+        >>> result == [{
+        ...     'base_path': '/home/user/path/to/project',
+        ...     'direnv': True,
+        ...     'lorri_cache_path': '/home/user/.cache/lorri/gc_roots/somehash',
+        ...     'nix_file': '/home/user/path/to/project/shell.nix',
+        ...     'shell_gc_root': '/nix/store/someotherhash-lorri-keep-env-hack-nix-shell',
+        ... }]
+        True
+    """
     combined_projects = []
     lorri_project_paths = {pathlib.Path(project["nix_file"]).parent for project in lorri_projects}
     for direnv_project in direnv_projects:
@@ -73,7 +103,7 @@ def combine_lorri_and_direnv_projects(lorri_projects, direnv_projects):
         if base_path in lorri_project_paths:
             for lorri_project in lorri_projects:
                 if pathlib.Path(lorri_project["nix_file"]).parent == base_path:
-                    lorri_project["base_path"] = base_path
+                    lorri_project["base_path"] = str(base_path)
                     lorri_project["direnv"] = True
                     combined_projects.append(lorri_project)
         else:
@@ -86,7 +116,7 @@ def combine_lorri_and_direnv_projects(lorri_projects, direnv_projects):
             combined_projects.append(combined_project)
     for lorri_project in lorri_projects:
         if "direnv" not in lorri_project:
-            lorri_project["base_path"] = pathlib.Path(lorri_project["nix_file"]).parent
+            lorri_project["base_path"] = str(pathlib.Path(lorri_project["nix_file"]).parent)
             lorri_project["direnv"] = False
             combined_projects.append(lorri_project)
     return combined_projects
@@ -131,6 +161,7 @@ def add_timestamp_to_sources(path, input):
     return results
 
 def find_obsolete(projects):
+    """Mark if the project is still a valid lorri project."""
     for project in projects:
         if "shell_gc_root" in project:
             project["shell_gc_root_exists"] = project["shell_gc_root"].exists()
@@ -142,7 +173,7 @@ def find_obsolete(projects):
     return projects
 
 def is_git_repo_modified(path):
-    """Check if a git repository was modified"""
+    """Check if a git repository was modified."""
     try:
         output = subprocess.check_output(["git", "status", "--porcelain"], cwd=path)
         return output!= b""
