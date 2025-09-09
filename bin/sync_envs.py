@@ -39,6 +39,61 @@ def main():
             parser.print_help()
             sys.exit(1)
 
+def list_files():
+    direnv_projects = find_direnv_projects()
+    lorri_projects = find_lorri_projects()
+    combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
+    combined_projects = find_obsolete(combined_projects)
+    combined_projects = check_if_has_git(combined_projects)
+    combined_projects = find_sources_json(combined_projects)
+
+    for project in sorted(combined_projects, key=lambda x: x['nix_file']):
+        print(f"  - {project['nix_file']}")
+        if "shell_gc_root" in project:
+            print(f"    - Shell GC Root: {project['shell_gc_root']}{' (Does not exist)' if not project['shell_gc_root_exists'] else ''}")
+        print(f"    - Direnv: {'Enabled' if project['direnv'] else 'Disabled'}")
+        if project["sources.json"] != None:
+            base_path = pathlib.Path(project['base_path'])
+            sources = add_timestamp_to_sources(base_path / "nix" / "sources.json", project["sources.json"])
+            for key, source in sources.items():
+                print(f'\t\t{key}: {source["timestamp"]}')
+
+def sync():
+    """Sync the current project to use the newest sources."""
+    # TODO find the newest versions for the nix dependencies
+    #      of the current project (current folder) and then
+    #      update the nix/sources.json accordingly
+    print("Sync function called")
+
+def sync_all():
+    """Sync all projects to used the newest sources."""
+    direnv_projects = find_direnv_projects()
+    lorri_projects = find_lorri_projects()
+    combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
+    combined_projects = find_obsolete(combined_projects)
+
+    modified_projects = False
+    for project in sorted(combined_projects, key=lambda x: x['base_path']):
+        if project["has_git"]:
+            path = project["base_path"]
+            if is_git_repo_modified(path):
+                print(f"The repository at '{path}' has uncommitted changes")
+                modified_projects = True
+    if modified_projects:
+        print("Do you really want to continue?")
+
+    # TODO function that adds a timestamp to each source in sources.json
+
+    # TODO find the newest versions for the nix dependencies
+    #      of all projects and then
+    #      update the nix/sources.json accordingly
+    print("Sync all function called")
+
+def cleanup():
+    """Cleanup function to be implemented"""
+    # TODO find all obsolete lorri and direnv roots and remove them
+    print("Cleanup function called")
+
 def find_direnv_projects():
     """Find all projects with an active direnv environment."""
     home_dir = pathlib.Path.home()
@@ -121,27 +176,12 @@ def combine_lorri_and_direnv_projects(lorri_projects, direnv_projects):
             combined_projects.append(lorri_project)
     return combined_projects
 
-def is_git_root(path):
-    git_dir = pathlib.Path(path) / ".git"
-    return git_dir.is_dir()
-
-def read_json_file(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            return data
-    except FileNotFoundError:
-        print(f"File '{file_path}' not found")
-        return None
-    except json.JSONDecodeError as e:
-        print(f"Error parsing JSON: {e}")
-        return None
-
 def search_string_in_git_file(file_path, search_string):
     """Search a string in a git-managed file"""
     dir_in_git_repo = str(pathlib.Path(file_path).parent)
     file_path = str(file_path)
     try:
+        # TODO how to handle if the file is not checked into git?
         git_blame_output = subprocess.check_output(["git", "-C", dir_in_git_repo, "blame", "-c", file_path])
         git_blame_output = git_blame_output.decode("utf-8")
         git_blame_lines = git_blame_output.splitlines()
@@ -194,57 +234,22 @@ def is_git_repo_modified(path):
     except subprocess.CalledProcessError:
         return False
 
-def sync():
-    """Sync the current project to use the newest sources."""
-    # TODO find the newest versions for the nix dependencies
-    #      of the current project (current folder) and then
-    #      update the nix/sources.json accordingly
-    print("Sync function called")
+def is_git_root(path):
+    """Check if a directory is a git directory."""
+    git_dir = pathlib.Path(path) / ".git"
+    return git_dir.is_dir()
 
-def sync_all():
-    """Sync all projects to used the newest sources."""
-    direnv_projects = find_direnv_projects()
-    lorri_projects = find_lorri_projects()
-    combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
-    combined_projects = find_obsolete(combined_projects)
-
-    modified_projects = False
-    for project in sorted(combined_projects, key=lambda x: x['base_path']):
-        if project["has_git"]:
-            path = project["base_path"]
-            if is_git_repo_modified(path):
-                print(f"The repository at '{path}' has uncommitted changes")
-                modified_projects = True
-    if modified_projects:
-        print("Do you really want to continue?")
-
-    # TODO find the newest versions for the nix dependencies
-    #      of all projects and then
-    #      update the nix/sources.json accordingly
-    print("Sync all function called")
-
-def list_files():
-    direnv_projects = find_direnv_projects()
-    lorri_projects = find_lorri_projects()
-    combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
-    combined_projects = find_obsolete(combined_projects)
-    combined_projects = check_if_has_git(combined_projects)
-    combined_projects = find_sources_json(combined_projects)
-
-    for project in sorted(combined_projects, key=lambda x: x['nix_file']):
-        print(f"  - {project['nix_file']}")
-        if "shell_gc_root" in project:
-            print(f"    - Shell GC Root: {project['shell_gc_root']}{' (Does not exist)' if not project['shell_gc_root_exists'] else ''}")
-        print(f"    - Direnv: {'Enabled' if project['direnv'] else 'Disabled'}")
-        if project["sources.json"] != None:
-            sources = add_timestamp_to_sources(project["base_path"] / "nix" / "sources.json", project["sources.json"])
-            for key, source in sources.items():
-                print(f'\t\t{key}: {source["timestamp"]}')
-
-def cleanup():
-    """Cleanup function to be implemented"""
-    # TODO find all obsolete lorri and direnv roots and remove them
-    print("Cleanup function called")
+def read_json_file(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        print(f"File '{file_path}' not found")
+        return None
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}")
+        return None
 
 if __name__ == "__main__":
     main()
