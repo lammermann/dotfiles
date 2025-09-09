@@ -167,9 +167,23 @@ def find_obsolete(projects):
             project["shell_gc_root_exists"] = project["shell_gc_root"].exists()
         else:
             project["shell_gc_root_exists"] = False
-        project["has_git"] = is_git_root(project["base_path"])
-        project["sources.json"] = read_json_file(project["base_path"] / "nix" / "sources.json")
 
+    return projects
+
+def find_sources_json(projects):
+    """Find the sources.json file."""
+    for project in projects:
+        base_path = pathlib.Path(project['base_path'])
+        sources_json_path = base_path / "nix" / "sources.json"
+        if sources_json_path.exists:
+            project["sources.json"] = read_json_file(sources_json_path)
+    return projects
+
+def check_if_has_git(projects):
+    """Mark if a project is managed by git."""
+    for project in projects:
+        base_path = pathlib.Path(project['base_path'])
+        project["has_git"] = is_git_root(base_path)
     return projects
 
 def is_git_repo_modified(path):
@@ -214,6 +228,8 @@ def list_files():
     lorri_projects = find_lorri_projects()
     combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
     combined_projects = find_obsolete(combined_projects)
+    combined_projects = check_if_has_git(combined_projects)
+    combined_projects = find_sources_json(combined_projects)
 
     for project in sorted(combined_projects, key=lambda x: x['nix_file']):
         print(f"  - {project['nix_file']}")
