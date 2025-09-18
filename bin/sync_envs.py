@@ -54,9 +54,13 @@ def list_files():
         print(f"    - Direnv: {'Enabled' if project['direnv'] else 'Disabled'}")
         if "sources.json" in project:
             base_path = pathlib.Path(project['base_path'])
-            sources = add_timestamp_to_sources(base_path / "nix" / "sources.json", project["sources.json"])
-            for key, source in sources.items():
-                print(f'\t\t{key}: {source["timestamp"]}')
+            sources_json_path = base_path / "nix" / "sources.json"
+            if is_file_managed_by_git(sources_json_path):
+                sources = add_timestamp_to_sources(sources_json_path, project["sources.json"])
+                for key, source in sources.items():
+                    print(f'\t\t{key}: {source["timestamp"]}')
+            else:
+                print("    - sources.json not managed by git")
 
 def sync():
     """Sync the current project to use the newest sources."""
@@ -181,7 +185,6 @@ def search_string_in_git_file(file_path, search_string):
     dir_in_git_repo = str(pathlib.Path(file_path).parent)
     file_path = str(file_path)
     try:
-        # TODO how to handle if the file is not checked into git?
         git_blame_output = subprocess.check_output(["git", "-C", dir_in_git_repo, "blame", "-c", file_path])
         git_blame_output = git_blame_output.decode("utf-8")
         git_blame_lines = git_blame_output.splitlines()
@@ -199,6 +202,16 @@ def add_timestamp_to_sources(path, input):
         source["timestamp"] = search_string_in_git_file(path, source["rev"])
         results[key] = source
     return results
+
+def is_file_managed_by_git(file_path):
+    dir_in_git_repo = str(pathlib.Path(file_path).parent)
+    file_path = str(file_path)
+    try:
+        git_output = subprocess.check_output(["git", "-C", dir_in_git_repo, "ls-files", "--error-unmatch", file_path], stderr=subprocess.STDOUT)
+        return True
+    except subprocess.CalledProcessError as e:
+        return False
+    return False
 
 def find_obsolete(projects):
     """Mark if the project is still a valid lorri project."""
