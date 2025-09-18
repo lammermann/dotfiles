@@ -52,7 +52,7 @@ def list_files():
         if "shell_gc_root" in project:
             print(f"    - Shell GC Root: {project['shell_gc_root']}{' (Does not exist)' if not project['shell_gc_root_exists'] else ''}")
         print(f"    - Direnv: {'Enabled' if project['direnv'] else 'Disabled'}")
-        if project["sources.json"] != None:
+        if "sources.json" in project:
             base_path = pathlib.Path(project['base_path'])
             sources = add_timestamp_to_sources(base_path / "nix" / "sources.json", project["sources.json"])
             for key, source in sources.items():
@@ -246,10 +246,10 @@ def read_json_file(file_path):
             return data
     except FileNotFoundError:
         print(f"File '{file_path}' not found")
-        return None
+        return {}
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
-        return None
+        return {}
 
 if __name__ == "__main__":
     main()
