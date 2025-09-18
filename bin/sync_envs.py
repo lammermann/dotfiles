@@ -63,10 +63,7 @@ def sync():
 
 def sync_all():
     """Sync all projects to used the newest sources."""
-    direnv_projects = find_direnv_projects()
-    lorri_projects = find_lorri_projects()
-    combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
-    combined_projects = find_obsolete(combined_projects)
+    combined_projects = gather_all_project_data()
 
     modified_projects = False
     for project in sorted(combined_projects, key=lambda x: x['base_path']):
@@ -77,8 +74,6 @@ def sync_all():
                 modified_projects = True
     if modified_projects:
         print("Do you really want to continue?")
-
-    # TODO function that adds a timestamp to each source in sources.json
 
     # TODO find the newest versions for the nix dependencies
     #      of all projects and then
