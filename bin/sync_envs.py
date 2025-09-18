@@ -40,12 +40,7 @@ def main():
             sys.exit(1)
 
 def list_files():
-    direnv_projects = find_direnv_projects()
-    lorri_projects = find_lorri_projects()
-    combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
-    combined_projects = find_obsolete(combined_projects)
-    combined_projects = check_if_has_git(combined_projects)
-    combined_projects = find_sources_json(combined_projects)
+    combined_projects = gather_all_project_data()
 
     for project in sorted(combined_projects, key=lambda x: x['nix_file']):
         print(f"  - {project['nix_file']}")
@@ -53,11 +48,8 @@ def list_files():
             print(f"    - Shell GC Root: {project['shell_gc_root']}{' (Does not exist)' if not project['shell_gc_root_exists'] else ''}")
         print(f"    - Direnv: {'Enabled' if project['direnv'] else 'Disabled'}")
         if "sources.json" in project:
-            base_path = pathlib.Path(project['base_path'])
-            sources_json_path = base_path / "nix" / "sources.json"
-            if is_file_managed_by_git(sources_json_path):
-                sources = add_timestamp_to_sources(sources_json_path, project["sources.json"])
-                for key, source in sources.items():
+            if project["sources_managed_by_git"]:
+                for key, source in project["sources.json"].items():
                     print(f'\t\t{key}: {source["timestamp"]}')
             else:
                 print("    - sources.json not managed by git")
@@ -97,6 +89,25 @@ def cleanup():
     """Cleanup function to be implemented"""
     # TODO find all obsolete lorri and direnv roots and remove them
     print("Cleanup function called")
+
+def gather_all_project_data():
+    """Find the relevant data of all projects."""
+    direnv_projects = find_direnv_projects()
+    lorri_projects = find_lorri_projects()
+    combined_projects = combine_lorri_and_direnv_projects(lorri_projects, direnv_projects)
+    combined_projects = find_obsolete(combined_projects)
+    combined_projects = check_if_has_git(combined_projects)
+    combined_projects = find_sources_json(combined_projects)
+    for project in combined_projects:
+        base_path = pathlib.Path(project['base_path'])
+        sources_json_path = base_path / "nix" / "sources.json"
+        if "sources.json" in project:
+            if is_file_managed_by_git(sources_json_path):
+                project["sources_managed_by_git"] = True
+                project["sources.json"] = add_timestamp_to_sources(sources_json_path, project["sources.json"])
+            else:
+                project["sources_managed_by_git"] = False
+    return combined_projects
 
 def find_direnv_projects():
     """Find all projects with an active direnv environment."""
