@@ -352,6 +352,54 @@ def find_newest_timestamps(projects):
         ...     },
         ... }, "Should ignore projects not managed by git"
 
+        # When projects use the same ref it takes the date of the older as the real date
+        >>> projects = [
+        ...     {
+        ...         'base_path': '/home/user/path/to/project',
+        ...         'direnv': True,
+        ...         'lorri_cache_path': '/home/user/.cache/lorri/gc_roots/somehash',
+        ...         'nix_file': '/home/user/path/to/project/shell.nix',
+        ...         'shell_gc_root': '/nix/store/someotherhash-lorri-keep-env-hack-nix-shell',
+        ...         'sources.json': {
+        ...             'niv': {
+        ...                 'branch': 'master',
+        ...                 'owner': 'nmattia',
+        ...                 'repo': 'niv',
+        ...                 'rev': 'dd678782cae74508d6b4824580d2b0935308011e',
+        ...                 'sha256': '0dk8dhh9vla2s409anmrfkva6h3r32xmz3cm8ha09wyk8iyf1f87',
+        ...                 'timestamp': '2025-09-18 12:51:43 +0300',
+        ...             },
+        ...         },
+        ...         'sources_managed_by_git': True,
+        ...     },
+        ...     {
+        ...         'base_path': '/home/user/path/to/project2',
+        ...         'direnv': True,
+        ...         'lorri_cache_path': '/home/user/.cache/lorri/gc_roots/somehash',
+        ...         'nix_file': '/home/user/path/to/project2/shell.nix',
+        ...         'shell_gc_root': '/nix/store/someotherhash-lorri-keep-env-hack-nix-shell',
+        ...         'sources.json': {
+        ...             'niv': {
+        ...                 'branch': 'master',
+        ...                 'owner': 'nmattia',
+        ...                 'repo': 'niv',
+        ...                 'rev': 'dd678782cae74508d6b4824580d2b0935308011e',
+        ...                 'sha256': '0dk8dhh9vla2s409anmrfkva6h3r32xmz3cm8ha09wyk8iyf1f87',
+        ...                 'type': 'tarball',
+        ...                 'timestamp': '2025-05-06 16:37:31 +0300'
+        ...             },
+        ...         },
+        ...         'sources_managed_by_git': True,
+        ...     },
+        ... ]
+        >>> result = find_newest_timestamps(projects)
+        >>> assert result == {
+        ...     'niv/nmattia/master': {
+        ...         'rev': 'dd678782cae74508d6b4824580d2b0935308011e',
+        ...         'sha256': '0dk8dhh9vla2s409anmrfkva6h3r32xmz3cm8ha09wyk8iyf1f87',
+        ...         'timestamp': '2025-05-06 16:37:31 +0300',
+        ...     },
+        ... }, "When projects use the same ref it takes the date of the older as the real date"
     """
     output = {}
     for project in projects:
