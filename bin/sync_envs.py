@@ -229,6 +229,85 @@ def find_obsolete(projects):
 
     return projects
 
+def find_newest_timestamps(projects):
+    """Find out wich are the newest timestamps for a project.
+
+    Arguments:
+        projects: A list of dicts with information about a project
+
+    Usage Examples:
+        # Should ignore projects not managed by git
+        >>> projects = [
+        ...     {
+        ...         'base_path': '/home/user/path/to/unmanaged/project',
+        ...         'direnv': True,
+        ...         'lorri_cache_path': '/home/user/.cache/lorri/gc_roots/somehash',
+        ...         'nix_file': '/home/user/path/to/unmanaged/project/shell.nix',
+        ...         'shell_gc_root': '/nix/store/someotherhash-lorri-keep-env-hack-nix-shell',
+        ...         'sources.json': {
+        ...             'nixpkgs': {
+        ...                 'branch': 'nixpkgs-unstable',
+        ...                 'owner': 'NixOS',
+        ...                 'repo': 'nixpkgs',
+        ...                 'rev': '9e4e0807d2142d17f463b26a8b796b3fe20a3011',
+        ...                 'sha256': '0khhlnl6rnhdhxqf7kfa6hyh9z970z4vqfvgd96z1brxc5kn057b',
+        ...             },
+        ...         },
+        ...         'sources_managed_by_git': False,
+        ...     },
+        ...     {
+        ...         'base_path': '/home/user/path/to/project',
+        ...         'direnv': True,
+        ...         'lorri_cache_path': '/home/user/.cache/lorri/gc_roots/somehash',
+        ...         'nix_file': '/home/user/path/to/project/shell.nix',
+        ...         'shell_gc_root': '/nix/store/someotherhash-lorri-keep-env-hack-nix-shell',
+        ...         'sources.json': {
+        ...             'nixpkgs': {
+        ...                 'branch': 'nixpkgs-unstable',
+        ...                 'owner': 'NixOS',
+        ...                 'repo': 'nixpkgs',
+        ...                 'rev': '84c256e42600cb0fdf25763b48d28df2f25a0c8b',
+        ...                 'sha256': '1j605w8mxarjk8mqj3v6fihij7q6ln87z5xvdvzx8maj7fr2y4x2',
+        ...                 'timestamp': '2025-08-26 17:56:25 +0300'
+        ...             },
+        ...         },
+        ...         'sources_managed_by_git': True,
+        ...     },
+        ... ]
+        >>> result = find_newest_timestamps(projects)
+        >>> assert result == {
+        ...     'nixpkgs/NixOS/nixpkgs-unstable': {
+        ...         'rev': '84c256e42600cb0fdf25763b48d28df2f25a0c8b',
+        ...         'sha256': '1j605w8mxarjk8mqj3v6fihij7q6ln87z5xvdvzx8maj7fr2y4x2',
+        ...         'timestamp': '2025-08-26 17:56:25 +0300'
+        ...     },
+        ... }, "Should ignore projects not managed by git"
+
+    """
+    output = {}
+    for project in projects:
+        if not project['sources_managed_by_git']:
+            continue
+        for source in project['sources.json'].values():
+            key = f"{source['repo']}/{source['owner']}/{source['branch']}"
+            overwrite = False
+            if key in output:
+                latest = output[key]
+                # check if current is better
+                if latest['timestamp'] < source['timestamp'] and latest['rev'] != source['rev']:
+                    overwrite = True
+                if latest['timestamp'] > source['timestamp'] and latest['rev'] == source['rev']:
+                    overwrite = True
+            else:
+                overwrite = True
+            if overwrite:
+                output[key] = {
+                    'rev': source['rev'],
+                    'sha256': source['sha256'],
+                    'timestamp': source['timestamp'],
+                }
+    return output
+
 def find_sources_json(projects):
     """Find the sources.json file."""
     for project in projects:
