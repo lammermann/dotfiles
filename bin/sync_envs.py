@@ -236,6 +236,75 @@ def find_newest_timestamps(projects):
         projects: A list of dicts with information about a project
 
     Usage Examples:
+        # Should find the newest projects
+        >>> projects = [
+        ...     {
+        ...         'base_path': '/home/user/path/to/project',
+        ...         'direnv': True,
+        ...         'lorri_cache_path': '/home/user/.cache/lorri/gc_roots/somehash',
+        ...         'nix_file': '/home/user/path/to/project/shell.nix',
+        ...         'shell_gc_root': '/nix/store/someotherhash-lorri-keep-env-hack-nix-shell',
+        ...         'sources.json': {
+        ...             'niv': {
+        ...                 'branch': 'master',
+        ...                 'owner': 'nmattia',
+        ...                 'repo': 'niv',
+        ...                 'rev': 'dd678782cae74508d6b4824580d2b0935308011e',
+        ...                 'sha256': '0dk8dhh9vla2s409anmrfkva6h3r32xmz3cm8ha09wyk8iyf1f87',
+        ...                 'timestamp': '2025-09-18 12:51:43 +0300',
+        ...             },
+        ...             'nixpkgs': {
+        ...                 'branch': 'nixpkgs-unstable',
+        ...                 'owner': 'NixOS',
+        ...                 'repo': 'nixpkgs',
+        ...                 'rev': '84c256e42600cb0fdf25763b48d28df2f25a0c8b',
+        ...                 'sha256': '1j605w8mxarjk8mqj3v6fihij7q6ln87z5xvdvzx8maj7fr2y4x2',
+        ...                 'timestamp': '2025-08-26 17:56:25 +0300'
+        ...             },
+        ...         },
+        ...         'sources_managed_by_git': True,
+        ...     },
+        ...     {
+        ...         'base_path': '/home/user/path/to/project2',
+        ...         'direnv': True,
+        ...         'lorri_cache_path': '/home/user/.cache/lorri/gc_roots/somehash',
+        ...         'nix_file': '/home/user/path/to/project2/shell.nix',
+        ...         'shell_gc_root': '/nix/store/someotherhash-lorri-keep-env-hack-nix-shell',
+        ...         'sources.json': {
+        ...             'niv': {
+        ...                 'branch': 'master',
+        ...                 'owner': 'nmattia',
+        ...                 'repo': 'niv',
+        ...                 'rev': '8ec04f46f1edeeed3f870da62191745b93975da7',
+        ...                 'sha256': '0z04zcr08p9b9lbf350gpivii5s88vcy92rwdk63kma7l0ysnpjb',
+        ...                 'timestamp': '2025-05-06 16:37:31 +0300'
+        ...             },
+        ...             'nixpkgs': {
+        ...                 'branch': 'nixpkgs-unstable',
+        ...                 'owner': 'NixOS',
+        ...                 'repo': 'nixpkgs',
+        ...                 'rev': '88cef159e47c0dc56f151593e044453a39a6e547',
+        ...                 'sha256': '08fvmcbgyilcwdz22cqnfcic2mvxdqq6nlg3l8a9gj2qp724v24i',
+        ...                 'timestamp': '2025-09-18 12:51:43 +0300',
+        ...             },
+        ...         },
+        ...         'sources_managed_by_git': True,
+        ...     },
+        ... ]
+        >>> result = find_newest_timestamps(projects)
+        >>> assert result == {
+        ...     'niv/nmattia/master': {
+        ...         'rev': 'dd678782cae74508d6b4824580d2b0935308011e',
+        ...         'sha256': '0dk8dhh9vla2s409anmrfkva6h3r32xmz3cm8ha09wyk8iyf1f87',
+        ...         'timestamp': '2025-09-18 12:51:43 +0300',
+        ...     },
+        ...     'nixpkgs/NixOS/nixpkgs-unstable': {
+        ...         'rev': '88cef159e47c0dc56f151593e044453a39a6e547',
+        ...         'sha256': '08fvmcbgyilcwdz22cqnfcic2mvxdqq6nlg3l8a9gj2qp724v24i',
+        ...         'timestamp': '2025-09-18 12:51:43 +0300',
+        ...     },
+        ... }, "Should find the newest projects"
+
         # Should ignore projects not managed by git
         >>> projects = [
         ...     {
