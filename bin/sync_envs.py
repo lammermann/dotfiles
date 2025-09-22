@@ -62,7 +62,7 @@ def sync():
     print("Sync function called")
 
 def sync_all():
-    """Sync all projects to used the newest sources."""
+    """Sync all projects to use the newest sources."""
     combined_projects = gather_all_project_data()
 
     modified_projects = False
