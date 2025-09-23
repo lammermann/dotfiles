@@ -64,21 +64,49 @@ def sync():
 def sync_all():
     """Sync all projects to use the newest sources."""
     combined_projects = gather_all_project_data()
+    newest = find_newest_versions(combined_projects)
 
-    modified_projects = False
     for project in sorted(combined_projects, key=lambda x: x['base_path']):
+        path = project["base_path"]
+        sources_to_update = []
+        if "sources.json" not in project:
+            print(f"could not find sources.json for project at {path}")
+            continue
         if project["has_git"]:
-            path = project["base_path"]
             if is_git_repo_modified(path):
                 print(f"The repository at '{path}' has uncommitted changes")
-                modified_projects = True
-    if modified_projects:
-        print("Do you really want to continue?")
+            for source in project["sources.json"].values():
+                key = get_source_key(source)
+                newest_src = newest.get(key, {})
+                rev = source["rev"]
+                if rev != newest_src.get("rev", rev):
+                    print(f"\tsource {key} {rev} -> {newest_src['rev']}")
+                    sources_to_update.append([source, newest_src])
+        else:
+            print(f"The project at '{path}' is not managed by git")
 
-    # TODO find the newest versions for the nix dependencies
-    #      of all projects and then
-    #      update the nix/sources.json accordingly
-    print("Sync all function called")
+        if len(sources_to_update) <= 0:
+            print(f"The project at {path} is already up to date")
+            continue
+
+        confirm = input(f"Do you want to sync project at {path}? [yes|no]").lower()
+        if confirm not in ("yes", "y"):
+            print("sync for project {path} canceled")
+            continue
+
+        sources_json_path = pathlib.Path(path) / "nix" / "sources.json"
+        with open(sources_json_path, 'r') as file:
+            data = file.read()
+        for to_update in sources_to_update:
+            current = to_update[0]
+            new = to_update[1]
+            data = data.replace(current['rev'], new['rev'])
+            data = data.replace(current['sha256'], new['sha256'])
+        with open(sources_json_path, 'w') as file:
+            file.write(data)
+            print("\tupdated sources\n\n")
+
+    print("All projects synced")
 
 def cleanup():
     """Cleanup function to be implemented"""
@@ -229,7 +257,7 @@ def find_obsolete(projects):
 
     return projects
 
-def find_newest_timestamps(projects):
+def find_newest_versions(projects):
     """Find out wich are the newest timestamps for a project.
 
     Arguments:
@@ -291,7 +319,7 @@ def find_newest_timestamps(projects):
         ...         'sources_managed_by_git': True,
         ...     },
         ... ]
-        >>> result = find_newest_timestamps(projects)
+        >>> result = find_newest_versions(projects)
         >>> assert result == {
         ...     'niv/nmattia/master': {
         ...         'rev': 'dd678782cae74508d6b4824580d2b0935308011e',
@@ -343,7 +371,7 @@ def find_newest_timestamps(projects):
         ...         'sources_managed_by_git': True,
         ...     },
         ... ]
-        >>> result = find_newest_timestamps(projects)
+        >>> result = find_newest_versions(projects)
         >>> assert result == {
         ...     'nixpkgs/NixOS/nixpkgs-unstable': {
         ...         'rev': '84c256e42600cb0fdf25763b48d28df2f25a0c8b',
@@ -392,7 +420,7 @@ def find_newest_timestamps(projects):
         ...         'sources_managed_by_git': True,
         ...     },
         ... ]
-        >>> result = find_newest_timestamps(projects)
+        >>> result = find_newest_versions(projects)
         >>> assert result == {
         ...     'niv/nmattia/master': {
         ...         'rev': 'dd678782cae74508d6b4824580d2b0935308011e',
@@ -406,7 +434,7 @@ def find_newest_timestamps(projects):
         if not project['sources_managed_by_git']:
             continue
         for source in project['sources.json'].values():
-            key = f"{source['repo']}/{source['owner']}/{source['branch']}"
+            key = get_source_key(source)
             overwrite = False
             if key in output:
                 latest = output[key]
@@ -424,6 +452,9 @@ def find_newest_timestamps(projects):
                     'timestamp': source['timestamp'],
                 }
     return output
+
+def get_source_key(source):
+    return f"{source['repo']}/{source['owner']}/{source['branch']}"
 
 def find_sources_json(projects):
     """Find the sources.json file."""
