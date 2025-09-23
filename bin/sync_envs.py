@@ -68,13 +68,15 @@ def sync_all():
 
     for project in sorted(combined_projects, key=lambda x: x['base_path']):
         path = project["base_path"]
+        print(f"\nproject at {path}")
+
         sources_to_update = []
         if "sources.json" not in project:
-            print(f"could not find sources.json for project at {path}")
+            print(f"\tcould not find sources.json")
             continue
         if project["has_git"]:
             if is_git_repo_modified(path):
-                print(f"The repository at '{path}' has uncommitted changes")
+                print(f"\thas uncommitted changes")
             for source in project["sources.json"].values():
                 key = get_source_key(source)
                 newest_src = newest.get(key, {})
@@ -83,15 +85,15 @@ def sync_all():
                     print(f"\tsource {key} {rev} -> {newest_src['rev']}")
                     sources_to_update.append([source, newest_src])
         else:
-            print(f"The project at '{path}' is not managed by git")
+            print(f"\tis not managed by git")
 
         if len(sources_to_update) <= 0:
-            print(f"The project at {path} is already up to date")
+            print(f"\tis already up to date")
             continue
 
         confirm = input(f"Do you want to sync project at {path}? [yes|no]").lower()
         if confirm not in ("yes", "y"):
-            print("sync for project {path} canceled")
+            print("\tsync for project {path} canceled")
             continue
 
         sources_json_path = pathlib.Path(path) / "nix" / "sources.json"
@@ -104,7 +106,7 @@ def sync_all():
             data = data.replace(current['sha256'], new['sha256'])
         with open(sources_json_path, 'w') as file:
             file.write(data)
-            print("\tupdated sources\n\n")
+            print("\tupdated sources\n")
 
     print("All projects synced")
 
