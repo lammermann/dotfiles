@@ -141,6 +141,7 @@ in {
       elvish
       watchexec entr
       mob
+      ast-grep
       # language servers
       python311Packages.python-lsp-server nodePackages.bash-language-server
       nodePackages.typescript-language-server rust-analyzer
