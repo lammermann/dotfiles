@@ -71,10 +71,12 @@ in {
 
     git = {
       enable = true;
-      package = pkgs.gitAndTools.gitFull;
-      userEmail = "benko@kober-systems.com";
-      userName = "Benjamin Kober";
-      extraConfig = {
+      package = pkgs.gitFull;
+      settings = {
+        user = {
+          email = "benko@kober-systems.com";
+          name = "Benjamin Kober";
+        };
         pull = {
           ff = "only";
         };
@@ -134,7 +136,7 @@ in {
           kak-ansi # improves usage as a pager
         ];
       })
-      kak-lsp kakoune-cr
+      kakoune-lsp kakoune-cr
       xsel # needed for kakoune clipboard support
       html-tidy
       jq jless
