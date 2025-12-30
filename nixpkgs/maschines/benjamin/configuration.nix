@@ -38,6 +38,8 @@ in {
   networking.interfaces.enp5s0f1.useDHCP = true;
   networking.interfaces.wlp0s20f3.useDHCP = true;
 
+  # Display Manager / X Server
+  #####################################################
   services.xserver = {
     enable = true;
     desktopManager = {
@@ -125,6 +127,8 @@ in {
 
   services.arbtt.enable = true;
 
+  # Virtualisation
+  #####################################################
   virtualisation = {
     podman = {
       enable = true;
@@ -146,6 +150,7 @@ in {
     wget vim git
     xfce.thunar-volman
     haskellPackages.arbtt
+    podman-compose
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
