@@ -177,6 +177,9 @@ in {
   # allow wireshark to be used by unprivileged users
   programs.wireshark.enable = true;
 
+  # allow some programms to be run that are not made for nix
+  programs.nix-ld.enable = true;
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
